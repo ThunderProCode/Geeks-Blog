@@ -1,14 +1,14 @@
 {
   "name": "geeksblogs",
   "version": "1.0.0",
-  "proxy":"http://localhost:8080",
+  "proxy": "http://localhost:8080",
   "description": "social media webapp",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development",
     "build": "webpack",
-    "dev": "webpack serve --config webpack.config.js"
+    "dev": "concurrently \"npx tsc --watch\" \"webpack serve --mode development\""
   },
   "author": "thunderprocode <hector889ju@gmail.com>",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.3",
     "@typescript-eslint/parser": "^5.30.3",
     "babel-loader": "^8.2.5",
+    "concurrently": "^7.2.2",
     "css-loader": "^6.7.1",
     "eslint": "^8.18.0",
     "eslint-plugin-react": "^7.30.1",

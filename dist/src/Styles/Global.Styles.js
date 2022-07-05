@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-
-export const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle `
 
     * { 
         font-family: 'Roboto', sans-serif;
@@ -37,4 +36,4 @@ export const GlobalStyles = createGlobalStyle`
         justify-content: center;
     }
 
-`
+`;

@@ -1,15 +1,13 @@
 import styled from "styled-components";
-
-export const Form = styled.form`
+export const Form = styled.form `
     margin: 14px;
     width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-self: center;
-`
-
-export const TextInput = styled.input`
+`;
+export const TextInput = styled.input `
     width: 95%;
     border: none;
     background: none;
@@ -20,20 +18,18 @@ export const TextInput = styled.input`
         font-size: 12px;
         font-weight: 100;
     }
-`
-
-export const Label = styled.label`
+`;
+export const Label = styled.label `
     width: 5%;
     color: white;
     font-size: 20px;
     margin-right: 6px;
-`
-export const CheckBoxLabel = styled.label`
+`;
+export const CheckBoxLabel = styled.label `
     color: white;
     font-size: 12px;
-`
-
-export const CheckBox = styled.input`
+`;
+export const CheckBox = styled.input `
     margin: 0px;
     margin-right: 6px;
     justify-self: left;
@@ -52,8 +48,8 @@ export const CheckBox = styled.input`
         background-color: white;
     }        
 
-`
-export const PrimaryButton = styled.button`
+`;
+export const PrimaryButton = styled.button `
     border-radius: 4px;
     padding: 6px;
     color: black;
@@ -62,8 +58,8 @@ export const PrimaryButton = styled.button`
     font-size: 20px;
     font-weight: 700;
     font-family: 'Roboto', sans-serif;
-`
-export const LoginWithButton = styled.button`
+`;
+export const LoginWithButton = styled.button `
     width: 100%;
     margin-top: 16px;
     border-radius: 4px;
@@ -87,4 +83,4 @@ export const LoginWithButton = styled.button`
         margin-right: auto;
     }
 
-`
+`;

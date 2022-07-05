@@ -1,15 +1,13 @@
 import styled from "styled-components";
-
-export const PageWrapper = styled.div`
+export const PageWrapper = styled.div `
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`
-
-export const FormInputWrapper = styled.div`
+`;
+export const FormInputWrapper = styled.div `
     margin-top: 16px;
     width: 100%;
     display: flex;
@@ -17,18 +15,16 @@ export const FormInputWrapper = styled.div`
     align-items: center;
     justify-content: center;
     border-bottom: 2px solid white;
-`
-
-export const CheckBoxWrapper = styled.div`
+`;
+export const CheckBoxWrapper = styled.div `
     width: 100%;
     display: flex;
     align-self: left;
     flex-direction: row;
     align-items: center;
     justify-content: left;
-`
-
-export const PasswordWrapper = styled.div`
+`;
+export const PasswordWrapper = styled.div `
     margin-top: 16px;
     width: 100%;
     display: flex;
@@ -43,9 +39,8 @@ export const PasswordWrapper = styled.div`
         font-size: 12px;
         text-align: end;
     }
-`
-
-export const RowWrapper = styled.div`
+`;
+export const RowWrapper = styled.div `
     margin-top: 12px;
     display: flex;
     flex-direction: row;
@@ -62,11 +57,10 @@ export const RowWrapper = styled.div`
         font-size: 14px;
         margin-left: 4px;
     }
-`
-
-export const Line = styled.div`
+`;
+export const Line = styled.div `
     margin: 12px;
     border: none;
     width: 100%;
     border-bottom: 2px solid white;
-`
+`;

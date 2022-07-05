@@ -1,8 +1,9 @@
 import React from 'react';
-import { PageWrapper,FormInputWrapper, CheckBoxWrapper, PasswordWrapper} from '../Styles/Divs.Styles';
-import { TextInput, Form, Label, CheckBox, CheckBoxLabel } from '../Styles/Forms.styles';
-import { PageTitle } from '../Styles/Titles.styles';
-import { MdOutlineAlternateEmail,MdLockOutline } from "react-icons/md";
+import { PageWrapper,FormInputWrapper, CheckBoxWrapper, PasswordWrapper, RowWrapper, Line} from '../Styles/Divs.styles';
+import { TextInput, Form, Label, CheckBox, CheckBoxLabel, PrimaryButton, LoginWithButton } from '../Styles/Forms.styles';
+import { PageTitle, Text } from '../Styles/Titles.styles';
+import { MdOutlineAlternateEmail,MdLockOutline, MdOutlineFacebook } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
     return (
@@ -37,6 +38,24 @@ const Login = () => {
                         </CheckBoxWrapper>
                         <a href="">Forgot Password?</a>
                     </PasswordWrapper>
+                    <PrimaryButton style={{marginTop: "36px"}}>Login</PrimaryButton>
+                    <RowWrapper>
+                        <Line/>
+                        <Text>or</Text>
+                        <Line/>
+                    </RowWrapper>
+                    <LoginWithButton style={{ background: "#4267B2" }} >
+                        <MdOutlineFacebook/>
+                        <span>Login with Facebook</span>
+                    </LoginWithButton>
+                    <LoginWithButton style={{ background: "white" }}>
+                        <FcGoogle/>
+                        <span>Login with google</span>
+                    </LoginWithButton>
+                    <RowWrapper style={{ marginTop: "120px" }} >
+                        <Text>Don't have an account?</Text>
+                        <a href="">Signup here</a>
+                    </RowWrapper>
                 </Form>
             </PageWrapper>
         </>

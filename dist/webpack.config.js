@@ -1,5 +1,5 @@
+"use strict";
 const path = require('path');
-
 module.exports = {
     entry: "./src/index.tsx",
     output: {
@@ -28,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader']
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
@@ -38,4 +38,4 @@ module.exports = {
         historyApiFallback: true,
         port: 8080,
     },
-}
+};
