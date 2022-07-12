@@ -70,3 +70,26 @@ export const Line = styled.div`
     width: 100%;
     border-bottom: 2px solid white;
 `
+export const PostWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+`
+export const PostIconContainer = styled.div`
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    svg {
+        font-size: 20px;
+    }
+
+    p {
+        margin-left: 4px;
+        font-size: 14px;
+    }
+`

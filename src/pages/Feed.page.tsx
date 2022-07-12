@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
+import { PageWrapper } from '../Styles/Divs.styles';
 import { PageTitle } from '../Styles/Titles.styles';
 import { logout } from '../services/auth.service';
 import { PrimaryButton } from '../Styles/Forms.styles';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import { auth} from '../services/auth.service';
+import Post from '../Components/Post';
+import Header from '../Components/Header';
 
 const Feed = () => {
 
@@ -23,10 +26,16 @@ const Feed = () => {
     }
 
     return (
-        <div>
-            <PageTitle>Feed</PageTitle>
+        <PageWrapper>
+            <Header></Header>
+            <div style={{marginTop: '50px'}}>
+                <Post></Post>
+                <Post></Post>
+                <Post></Post>
+                <Post></Post>
+            </div>
             <PrimaryButton onClick={handleLogOut} >Logout</PrimaryButton>
-        </div>
+        </PageWrapper>
     );
 };
 
