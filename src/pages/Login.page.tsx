@@ -15,7 +15,7 @@ const Login = () => {
     const [user,loading, error] = useAuthState(auth);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault();
     }
 
@@ -42,7 +42,6 @@ const Login = () => {
             <PageWrapper>
                 <PageTitle>GEEKS BLOG</PageTitle>
                 <Form onSubmit={handleSubmit}>
-
                     {/* Email Input */}
                     <FormInputWrapper>
                         <Label htmlFor="email" >
@@ -106,7 +105,7 @@ const Login = () => {
 
                      {/* Signup */}
                     <RowWrapper style={{ marginTop: "120px" }} >
-                        <Text>Don't have an account?</Text>
+                        <Text>Don&apos;t have an account?</Text>
                         <Link to="/register">Signup here</Link>
                     </RowWrapper>
 

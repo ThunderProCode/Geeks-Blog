@@ -18,7 +18,7 @@ const Register = () => {
     const [user, loading, error ] = useAuthState(auth);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:React.FormEvent) => {
             e.preventDefault();
     }
 

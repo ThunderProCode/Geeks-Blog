@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageWrapper } from '../Styles/Divs.styles';
-import { PageTitle } from '../Styles/Titles.styles';
-import { logout } from '../services/auth.service';
-import { PrimaryButton } from '../Styles/Forms.styles';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import { auth} from '../services/auth.service';
@@ -15,14 +12,15 @@ const Feed = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(loading)return;
         if(!user){
             navigate("/login");
         }
     },[user,loading]);
 
-    const handleLogOut = () => {
-        logout();
+    if(loading){
+        return(
+            <h1>Loading....</h1>
+        );
     }
 
     return (
@@ -34,7 +32,6 @@ const Feed = () => {
                 <Post></Post>
                 <Post></Post>
             </div>
-            <PrimaryButton onClick={handleLogOut} >Logout</PrimaryButton>
         </PageWrapper>
     );
 };

@@ -8,7 +8,6 @@ import { BsThreeDots } from 'react-icons/bs';
 const Post = () => {
     return (
         <PostWrapper>
-
             <div style={{width: '90%',marginBottom: '12px',display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                 <div style={{display: 'flex',marginTop: '4px'}}>
                     <PostProfilePic src='https://st2.depositphotos.com/2166845/5890/i/450/depositphotos_58906929-stock-photo-cairn-terrier-puppy.jpg'/>
