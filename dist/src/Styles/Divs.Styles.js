@@ -15,6 +15,8 @@ export const FormInputWrapper = styled.div `
     align-items: center;
     justify-content: center;
     border-bottom: 2px solid white;
+    border-radius: 1px;
+    padding: 4px;
 `;
 export const CheckBoxWrapper = styled.div `
     width: 100%;

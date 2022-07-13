@@ -1,11 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth } from '../services/auth.service';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
+import { Form, TextInput, Label, PrimaryButton } from '../Styles/Forms.styles';
+import { FormInputWrapper, PageWrapper } from '../Styles/Divs.styles';
+import { BsCamera } from 'react-icons/bs';
+import { PageTitle } from '../Styles/Titles.styles';
+import { createPost } from '../services/posts.service';
 const PostForm = () => {
     const [user, loading] = useAuthState(auth);
+    const [image, setImage] = useState(null);
+    const [postTitle, setPostTitle] = useState("");
     const navigate = useNavigate();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onPost();
+    };
+    const onFileChange = (e) => {
+        setImage(e.target.files[0]);
+    };
+    const onTitleChange = (e) => {
+        setPostTitle(e.target.value);
+    };
+    const onPost = () => {
+        if (image) {
+            createPost(user.uid, postTitle, image);
+        }
+    };
     useEffect(() => {
         if (!user)
             navigate('/login');
@@ -13,8 +35,19 @@ const PostForm = () => {
     if (loading) {
         return (React.createElement("h1", null, "Loading...."));
     }
-    return (React.createElement(React.Fragment, null,
+    return (React.createElement(PageWrapper, null,
         React.createElement(Header, null),
-        React.createElement("div", { style: { color: 'white' } }, "Create new post")));
+        React.createElement(PageTitle, null, "New post"),
+        React.createElement(Form, { onSubmit: handleSubmit },
+            React.createElement(FormInputWrapper, null,
+                React.createElement(Label, { style: { fontSize: '14px', fontWeight: 'bold' } }, "Title: "),
+                React.createElement(TextInput, { type: "text", style: { marginLeft: '12px' }, onChange: onTitleChange })),
+            React.createElement("div", { style: { marginTop: '24px', marginBottom: '24px', textAlign: 'center', padding: '3%', border: '2px solid white', borderRadius: '4px' } },
+                React.createElement("label", { htmlFor: "inputFileTag", style: { color: 'white', cursor: 'pointer' } },
+                    "Select Image",
+                    React.createElement("br", null),
+                    React.createElement(BsCamera, { style: { color: 'white' } }),
+                    React.createElement("input", { id: 'inputFileTag', type: "file", style: { display: 'none' }, onChange: onFileChange }))),
+            React.createElement(PrimaryButton, { type: 'submit' }, "Post"))));
 };
 export default PostForm;

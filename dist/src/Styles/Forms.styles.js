@@ -84,3 +84,6 @@ export const LoginWithButton = styled.button `
     }
 
 `;
+export const InputImage = styled.input `
+    display: none;
+`;

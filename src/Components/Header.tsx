@@ -28,7 +28,7 @@ const Header = () => {
                 zIndex: '1'
             }}>
                 <GiHamburgerMenu style={{color: 'white', fontSize: '20px'}} onClick={toggleMenu} />
-                <h1 style={{color: 'white',fontSize: '24px'}}>Feed</h1>
+                {/* <h1 style={{color: 'white',fontSize: '24px'}}>Feed</h1> */}
                 <img 
                     src="https://i.pinimg.com/originals/03/3f/c5/033fc537c42bfe4e2eb5b6e128a2d083.png" 
                     alt="" 

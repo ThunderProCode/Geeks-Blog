@@ -21,7 +21,6 @@ const Header = () => {
                 zIndex: '1'
             } },
             React.createElement(GiHamburgerMenu, { style: { color: 'white', fontSize: '20px' }, onClick: toggleMenu }),
-            React.createElement("h1", { style: { color: 'white', fontSize: '24px' } }, "Feed"),
             React.createElement("img", { src: "https://i.pinimg.com/originals/03/3f/c5/033fc537c42bfe4e2eb5b6e128a2d083.png", alt: "", style: {
                     width: '24px',
                     height: '24px',
