@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 // Styles
 import { PageWrapper, FormInputWrapper, CheckBoxWrapper, PasswordWrapper, RowWrapper, Line } from '../Styles/Divs.styles';
 import { TextInput, Form, Label, CheckBox, CheckBoxLabel, PrimaryButton, LoginWithButton } from '../Styles/Forms.styles';
 import { PageTitle, Text } from '../Styles/Titles.styles';
 // Icons
-import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineFacebook } from "react-icons/md";
+import { MdOutlineAlternateEmail, MdLockOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 // react router
 import { useNavigate, Link } from 'react-router-dom';
@@ -29,7 +30,24 @@ const Login = () => {
             }));
         })
             .catch((err) => {
-            console.log(err);
+            if (err.code === 'auth/invalid-credential') {
+                toast.error("Invalid Credentials", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
+            else if (err.code === 'auth/user-not-found') {
+                toast.error("Account not found", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
+            else if (err.code === 'auth/wrong-password') {
+                toast.error("Wrong password", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
+            else {
+                console.log(err);
+            }
         });
     };
     const handleLoginWithGoogle = () => {
@@ -44,6 +62,9 @@ const Login = () => {
     };
     useEffect(() => {
         if (user) {
+            toast.success("Login Successful", {
+                position: toast.POSITION.TOP_CENTER,
+            });
             navigate("/");
         }
     }, [user]);
@@ -69,9 +90,6 @@ const Login = () => {
                     React.createElement(Line, null),
                     React.createElement(Text, null, "or"),
                     React.createElement(Line, null)),
-                React.createElement(LoginWithButton, { style: { background: "#4267B2" } },
-                    React.createElement(MdOutlineFacebook, null),
-                    React.createElement("span", null, "Login with Facebook")),
                 React.createElement(LoginWithButton, { style: { background: "white" }, onClick: handleLoginWithGoogle, type: "button" },
                     React.createElement(FcGoogle, null),
                     React.createElement("span", null, "Login with google")),

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 // Icons
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineUser } from "react-icons/ai";
-import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineFacebook } from "react-icons/md";
+import { MdOutlineAlternateEmail, MdLockOutline } from "react-icons/md";
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createUserWithEmailAndPassword, auth } from '../services/auth.service';
@@ -71,9 +71,6 @@ const Register = () => {
                 React.createElement(Line, null),
                 React.createElement(Text, null, "or"),
                 React.createElement(Line, null)),
-            React.createElement(LoginWithButton, { style: { background: "#4267B2" } },
-                React.createElement(MdOutlineFacebook, null),
-                React.createElement("span", null, "Login with Facebook")),
             React.createElement(LoginWithButton, { style: { background: "white" }, onClick: handleSignUpWithGoogle },
                 React.createElement(FcGoogle, null),
                 React.createElement("span", null, "Login with google")))));

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 // Styles
 import { PageWrapper,FormInputWrapper, CheckBoxWrapper, PasswordWrapper, RowWrapper, Line} from '../Styles/Divs.styles';
@@ -40,7 +41,21 @@ const Login = () => {
             )
         })
         .catch((err) => {
-            console.log(err);
+            if(err.code === 'auth/invalid-credential'){
+                toast.error("Invalid Credentials",{
+                    position: toast.POSITION.TOP_CENTER,
+                })
+            } else if(err.code === 'auth/user-not-found'){
+                toast.error("Account not found",{
+                    position: toast.POSITION.TOP_CENTER,
+                })
+            } else if(err.code === 'auth/wrong-password'){
+                toast.error("Wrong password",{
+                    position: toast.POSITION.TOP_CENTER,
+                })
+            }else {
+                console.log(err);
+            }
         })
     }
 
@@ -59,6 +74,9 @@ const Login = () => {
 
     useEffect(() => {
         if(user){
+            toast.success("Login Successful", {
+                position: toast.POSITION.TOP_CENTER,
+            });
             navigate("/");
         }
     }, [user]);
@@ -118,10 +136,10 @@ const Login = () => {
                     </RowWrapper>
 
                      {/* Login with facebook button */}
-                    <LoginWithButton style={{ background: "#4267B2" }} >
+                    {/* <LoginWithButton style={{ background: "#4267B2" }} >
                         <MdOutlineFacebook/>
                         <span>Login with Facebook</span>
-                    </LoginWithButton>
+                    </LoginWithButton> */}
                     
                      {/* Login with google button */}
                     <LoginWithButton style={{ background: "white" }} onClick={handleLoginWithGoogle} type="button" >

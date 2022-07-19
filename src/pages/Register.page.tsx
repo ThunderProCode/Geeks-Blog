@@ -128,10 +128,11 @@ const Register = () => {
                         <Line/>
                     </RowWrapper>
                 {/* Login with facebook Button */}                    
-                <LoginWithButton style={{ background: "#4267B2" }} >
+                {/* <LoginWithButton style={{ background: "#4267B2" }} >
                   <MdOutlineFacebook/>
                     <span>Login with Facebook</span>
-                </LoginWithButton>
+                </LoginWithButton> */}
+                
                 {/* Login with google Button */}
                 <LoginWithButton style={{ background: "white" }} onClick={handleSignUpWithGoogle}>
                     <FcGoogle/>

@@ -5,6 +5,8 @@ import Register from '../pages/Register.page';
 import Feed from '../pages/Feed.page';
 import PostForm from '../pages/PostForm.page';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
     return (React.createElement(React.Fragment, null,
         React.createElement(GlobalStyles, null),
@@ -13,6 +15,7 @@ const App = () => {
                 React.createElement(Route, { path: "/", element: React.createElement(Feed, null) }),
                 React.createElement(Route, { path: "/login", element: React.createElement(Login, null) }),
                 React.createElement(Route, { path: "/register", element: React.createElement(Register, null) }),
-                React.createElement(Route, { path: '/newPost', element: React.createElement(PostForm, null) })))));
+                React.createElement(Route, { path: '/newPost', element: React.createElement(PostForm, null) }))),
+        React.createElement(ToastContainer, null)));
 };
 export default App;
