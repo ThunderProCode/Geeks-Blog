@@ -29,6 +29,7 @@ export const createPost = (uid, title, file) => __awaiter(void 0, void 0, void 0
                 postDate: Timestamp.fromDate(new Date()),
                 postImageUrl: downloadURL,
             });
+            console.log('Post uploaded');
         }).catch(err => {
             console.log(err);
         });

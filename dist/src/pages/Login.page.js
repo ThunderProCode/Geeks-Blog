@@ -1,34 +1,52 @@
 import React, { useEffect, useState } from 'react';
+// Styles
 import { PageWrapper, FormInputWrapper, CheckBoxWrapper, PasswordWrapper, RowWrapper, Line } from '../Styles/Divs.styles';
 import { TextInput, Form, Label, CheckBox, CheckBoxLabel, PrimaryButton, LoginWithButton } from '../Styles/Forms.styles';
 import { PageTitle, Text } from '../Styles/Titles.styles';
+// Icons
 import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineFacebook } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, signInWithGoogle, logInWithEmailAndPassword } from '../services/auth.service';
+// react router
 import { useNavigate, Link } from 'react-router-dom';
+// Redux
+import { login, selectUser } from '../services/auth.slice';
+import { auth, signInWithEmailAndPassword, signInWithPopup, googleProvider } from '../services/auth.service';
+import { useSelector, useDispatch } from 'react-redux';
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [user, loading, error] = useAuthState(auth);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector(selectUser);
     const handleSubmit = (e) => {
         e.preventDefault();
-    };
-    const handleLoginWithEmailAndPassword = () => {
-        logInWithEmailAndPassword(email, password);
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userAuth) => {
+            dispatch(login({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                displayName: userAuth.user.displayName,
+            }));
+        })
+            .catch((err) => {
+            console.log(err);
+        });
     };
     const handleLoginWithGoogle = () => {
-        signInWithGoogle();
+        signInWithPopup(auth, googleProvider)
+            .then((userAuth) => {
+            dispatch(login({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                displayName: userAuth.user.displayName
+            }));
+        });
     };
     useEffect(() => {
-        if (loading) {
-            return;
-        }
         if (user) {
             navigate("/");
         }
-    }, [user, loading]);
+    }, [user]);
     return (React.createElement(React.Fragment, null,
         React.createElement(PageWrapper, null,
             React.createElement(PageTitle, null, "GEEKS BLOG"),
@@ -46,7 +64,7 @@ const Login = () => {
                         React.createElement(CheckBox, { type: "checkbox" }),
                         React.createElement(CheckBoxLabel, null, "Remember me")),
                     React.createElement("a", { href: "" }, "Forgot Password?")),
-                React.createElement(PrimaryButton, { type: "submit", style: { marginTop: "36px" }, onClick: handleLoginWithEmailAndPassword }, "Login"),
+                React.createElement(PrimaryButton, { type: "submit", style: { marginTop: "36px" } }, "Login"),
                 React.createElement(RowWrapper, null,
                     React.createElement(Line, null),
                     React.createElement(Text, null, "or"),
@@ -54,7 +72,7 @@ const Login = () => {
                 React.createElement(LoginWithButton, { style: { background: "#4267B2" } },
                     React.createElement(MdOutlineFacebook, null),
                     React.createElement("span", null, "Login with Facebook")),
-                React.createElement(LoginWithButton, { style: { background: "white" }, onClick: handleLoginWithGoogle },
+                React.createElement(LoginWithButton, { style: { background: "white" }, onClick: handleLoginWithGoogle, type: "button" },
                     React.createElement(FcGoogle, null),
                     React.createElement("span", null, "Login with google")),
                 React.createElement(RowWrapper, { style: { marginTop: "120px" } },

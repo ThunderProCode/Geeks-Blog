@@ -1,8 +1,15 @@
 import React from 'react';
-import { logout } from '../services/auth.service';
 import { MenuUl } from '../Styles/Menu.styles';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../services/auth.slice';
+import { auth } from '../services/auth.service';
 const SideMenu = () => {
+    const dispatch = useDispatch();
+    const logoutOfApp = () => {
+        dispatch(logout());
+        auth.signOut();
+    };
     return (React.createElement("div", { style: {
             background: 'black',
             width: '50%',

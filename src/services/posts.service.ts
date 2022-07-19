@@ -26,12 +26,11 @@ export const createPost = async (uid:string,title:string,file:File) => {
                     postDate: Timestamp.fromDate(new Date()),
                     postImageUrl: downloadURL,
                 });
+                console.log('Post uploaded');
             }).catch(err => {
                 console.log(err);
             })
         }
     )    
-
-    
 }
 

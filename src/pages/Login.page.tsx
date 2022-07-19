@@ -1,41 +1,67 @@
 import React, { useEffect, useState } from 'react';
+
+// Styles
 import { PageWrapper,FormInputWrapper, CheckBoxWrapper, PasswordWrapper, RowWrapper, Line} from '../Styles/Divs.styles';
 import { TextInput, Form, Label, CheckBox, CheckBoxLabel, PrimaryButton, LoginWithButton } from '../Styles/Forms.styles';
 import { PageTitle, Text } from '../Styles/Titles.styles';
+
+// Icons
 import { MdOutlineAlternateEmail,MdLockOutline, MdOutlineFacebook } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, signInWithGoogle, logInWithEmailAndPassword } from '../services/auth.service';
+
+// react router
 import { useNavigate, Link } from 'react-router-dom';
+
+// Redux
+import { login, selectUser } from '../services/auth.slice';
+import { auth, signInWithEmailAndPassword, signInWithPopup, googleProvider } from '../services/auth.service';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch } from '../App/Store';
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [user,loading, error] = useAuthState(auth);
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
+
+    const user = useSelector(selectUser);
 
     const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault();
-    }
-
-    const handleLoginWithEmailAndPassword = () => {
-        logInWithEmailAndPassword(email,password);
+        signInWithEmailAndPassword(auth,email,password)
+        .then((userAuth) => {
+            dispatch(
+                login({
+                    email: userAuth.user.email,
+                    uid: userAuth.user.uid,
+                    displayName: userAuth.user.displayName,
+                })
+            )
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     const handleLoginWithGoogle = () => {
-        signInWithGoogle();
+        signInWithPopup(auth,googleProvider)
+        .then((userAuth) => {
+            dispatch(
+                login({
+                    email:userAuth.user.email,
+                    uid: userAuth.user.uid,
+                    displayName: userAuth.user.displayName
+                })
+            )
+        })
     }
 
     useEffect(() => {
-        if(loading){
-            return;
-        }
-
         if(user){
             navigate("/");
         }
-    }, [user,loading]);
+    }, [user]);
 
     return (
         <>
@@ -80,7 +106,7 @@ const Login = () => {
                     </PasswordWrapper>
 
                      {/* Login button */}
-                    <PrimaryButton type="submit" style={{marginTop: "36px"}} onClick={handleLoginWithEmailAndPassword} >
+                    <PrimaryButton type="submit" style={{marginTop: "36px"}}>
                         Login
                     </PrimaryButton>
 
@@ -98,7 +124,7 @@ const Login = () => {
                     </LoginWithButton>
                     
                      {/* Login with google button */}
-                    <LoginWithButton style={{ background: "white" }} onClick={handleLoginWithGoogle} >
+                    <LoginWithButton style={{ background: "white" }} onClick={handleLoginWithGoogle} type="button" >
                         <FcGoogle/>
                         <span>Login with google</span>
                     </LoginWithButton>

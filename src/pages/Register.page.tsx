@@ -1,43 +1,64 @@
 import React, { useEffect, useState } from "react";
+
+// Styles
 import { FormInputWrapper, PageWrapper, RowWrapper, Line } from "../Styles/Divs.styles";
 import { Form, Label, PrimaryButton, TextInput, LoginWithButton } from "../Styles/Forms.styles";
 import { PageTitle,Text } from "../Styles/Titles.styles";
+
+// Router
+import { useNavigate } from 'react-router-dom';
+
+// Icons
+import { FcGoogle } from "react-icons/fc";
 import { AiOutlineUser } from "react-icons/ai";
 import { MdOutlineAlternateEmail,MdLockOutline,MdOutlineFacebook } from "react-icons/md";
-import { FcGoogle } from "react-icons/fc";
-import { auth, registerWithEmailAndPassword, signInWithGoogle } from "../services/auth.service";
-import { useNavigate } from 'react-router-dom';
-import { useAuthState } from 'react-firebase-hooks/auth';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from "../App/Store";
+import { createUserWithEmailAndPassword,auth } from '../services/auth.service';
+import { login, selectUser } from "../services/auth.slice";
 
 const Register = () => {
 
+    const user = useSelector(selectUser);
     const [email,setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2 ] = useState("");
     const [name, setName] = useState("");
-    const [user, loading, error ] = useAuthState(auth);
+
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
+
 
     const handleSubmit = (e:React.FormEvent) => {
             e.preventDefault();
+            if(!name){
+                return alert('Please enter name');
+            }
+            
+            if(password === password2){
+                createUserWithEmailAndPassword(auth,email,password)
+                .then((userAuth) => {
+                    dispatch(login({
+                        email: userAuth.user.email,
+                        uid: userAuth.user.uid,
+                        displayName: name,
+                    }))
+                })
+                .catch((err) => {
+                    alert(err);
+                })
+            }
     }
 
-    const handleSignUp = () => {
-        if(!name){
-            alert("Please enter name");
-        }else {
-            if(password === password2){
-                registerWithEmailAndPassword(name,email,password);
-            }else {
-                alert("Both passwords must be the same");
-            }
-        }
+    const handleSignUpWithGoogle = () => {
+        console.log('Google signup');
     }
 
     useEffect( () => {
-        if(loading) return;
         if(user) navigate("/");
-    },[user,loading]);
+    },[user]);
 
     return (
         <PageWrapper>
@@ -97,7 +118,7 @@ const Register = () => {
                     />
                 </FormInputWrapper>
                 {/* Signup Button */}
-                <PrimaryButton type="submit" style={{ marginTop: "36px" }} onClick={handleSignUp}>
+                <PrimaryButton type="submit" style={{ marginTop: "36px" }}>
                     Signup
                 </PrimaryButton>
                 {/* Divisory line */}
@@ -112,7 +133,7 @@ const Register = () => {
                     <span>Login with Facebook</span>
                 </LoginWithButton>
                 {/* Login with google Button */}
-                <LoginWithButton style={{ background: "white" }} onClick={signInWithGoogle}>
+                <LoginWithButton style={{ background: "white" }} onClick={handleSignUpWithGoogle}>
                     <FcGoogle/>
                     <span>Login with google</span>
                 </LoginWithButton>
