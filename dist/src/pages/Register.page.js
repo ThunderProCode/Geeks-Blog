@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 // Styles
 import { FormInputWrapper, PageWrapper, RowWrapper, Line } from "../Styles/Divs.styles";
 import { Form, Label, PrimaryButton, TextInput, LoginWithButton } from "../Styles/Forms.styles";
 import { PageTitle, Text } from "../Styles/Titles.styles";
 // Router
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // Icons
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineUser } from "react-icons/ai";
@@ -24,20 +25,30 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!name) {
-            return alert('Please enter name');
+            toast.error('Please enter your name');
         }
-        if (password === password2) {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userAuth) => {
-                dispatch(login({
-                    email: userAuth.user.email,
-                    uid: userAuth.user.uid,
-                    displayName: name,
-                }));
-            })
-                .catch((err) => {
-                alert(err);
-            });
+        else {
+            if (password === password2) {
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userAuth) => {
+                    dispatch(login({
+                        email: userAuth.user.email,
+                        uid: userAuth.user.uid,
+                        displayName: name,
+                    }));
+                })
+                    .catch((err) => {
+                    if (err.code === 'auth/email-already-in-use') {
+                        toast.error('Email already in use');
+                    }
+                    else if (err.code === 'auth/weak-password') {
+                        toast.error('Weak password');
+                    }
+                    else {
+                        console.log(err);
+                    }
+                });
+            }
         }
     };
     const handleSignUpWithGoogle = () => {
@@ -73,6 +84,9 @@ const Register = () => {
                 React.createElement(Line, null)),
             React.createElement(LoginWithButton, { style: { background: "white" }, onClick: handleSignUpWithGoogle },
                 React.createElement(FcGoogle, null),
-                React.createElement("span", null, "Login with google")))));
+                React.createElement("span", null, "Login with google")),
+            React.createElement(RowWrapper, { style: { marginTop: "120px" } },
+                React.createElement(Text, null, "Already have an account?"),
+                React.createElement(Link, { to: "/login" }, "Login here")))));
 };
 export default Register;

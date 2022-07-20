@@ -39,7 +39,7 @@ const SideMenu = () => {
                     <a href="">Settings</a>
                 </li>
                 <li>
-                    <a href="" onClick={logout}>Logout</a>
+                    <a href="" onClick={logoutOfApp}>Logout</a>
                 </li>
             </MenuUl>
         </div>

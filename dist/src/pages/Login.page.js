@@ -31,19 +31,16 @@ const Login = () => {
         })
             .catch((err) => {
             if (err.code === 'auth/invalid-credential') {
-                toast.error("Invalid Credentials", {
-                    position: toast.POSITION.TOP_CENTER,
-                });
+                toast.error("Invalid Credentials");
             }
             else if (err.code === 'auth/user-not-found') {
-                toast.error("Account not found", {
-                    position: toast.POSITION.TOP_CENTER,
-                });
+                toast.error("Account not found");
             }
             else if (err.code === 'auth/wrong-password') {
-                toast.error("Wrong password", {
-                    position: toast.POSITION.TOP_CENTER,
-                });
+                toast.error("Wrong password");
+            }
+            else if (err.code === 'auth/invalid-email') {
+                toast.error("Invalid email");
             }
             else {
                 console.log(err);
@@ -84,7 +81,7 @@ const Login = () => {
                     React.createElement(CheckBoxWrapper, null,
                         React.createElement(CheckBox, { type: "checkbox" }),
                         React.createElement(CheckBoxLabel, null, "Remember me")),
-                    React.createElement("a", { href: "" }, "Forgot Password?")),
+                    React.createElement(Link, { to: "/passwordReset" }, "Forgot Password?")),
                 React.createElement(PrimaryButton, { type: "submit", style: { marginTop: "36px" } }, "Login"),
                 React.createElement(RowWrapper, null,
                     React.createElement(Line, null),

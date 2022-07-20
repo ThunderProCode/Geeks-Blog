@@ -1,13 +1,20 @@
 import React from 'react';
+
+// Styles
 import { GlobalStyles } from '../Styles/Global.Styles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Pages
 import Login from '../pages/Login.page';
 import Register from '../pages/Register.page';
 import Feed from '../pages/Feed.page';
 import PostForm from '../pages/PostForm.page';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import PasswordReset from '../pages/PasswordReset.page';
 
-import 'react-toastify/dist/ReactToastify.css';
+// Router 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 
 const App = () => {
     return (
@@ -19,9 +26,14 @@ const App = () => {
                     <Route path="/login" element={<Login/>} />
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />
+                    <Route path='/passwordReset' element={ <PasswordReset/> }/>
                 </Routes>
             </BrowserRouter>
-            <ToastContainer/>
+            <ToastContainer 
+                autoClose={2000}
+                theme="dark"  
+                position='top-center'
+            />
         </>
     );
 };

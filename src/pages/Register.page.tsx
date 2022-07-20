@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 // Styles
 import { FormInputWrapper, PageWrapper, RowWrapper, Line } from "../Styles/Divs.styles";
@@ -6,12 +7,12 @@ import { Form, Label, PrimaryButton, TextInput, LoginWithButton } from "../Style
 import { PageTitle,Text } from "../Styles/Titles.styles";
 
 // Router
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Icons
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineUser } from "react-icons/ai";
-import { MdOutlineAlternateEmail,MdLockOutline,MdOutlineFacebook } from "react-icons/md";
+import { MdOutlineAlternateEmail,MdLockOutline } from "react-icons/md";
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,21 +35,27 @@ const Register = () => {
     const handleSubmit = (e:React.FormEvent) => {
             e.preventDefault();
             if(!name){
-                return alert('Please enter name');
-            }
-            
-            if(password === password2){
-                createUserWithEmailAndPassword(auth,email,password)
-                .then((userAuth) => {
-                    dispatch(login({
-                        email: userAuth.user.email,
-                        uid: userAuth.user.uid,
-                        displayName: name,
-                    }))
-                })
-                .catch((err) => {
-                    alert(err);
-                })
+                toast.error('Please enter your name');
+            }else {
+                if(password === password2){
+                    createUserWithEmailAndPassword(auth,email,password)
+                    .then((userAuth) => {
+                        dispatch(login({
+                            email: userAuth.user.email,
+                            uid: userAuth.user.uid,
+                            displayName: name,
+                        }))
+                    })
+                    .catch((err) => {
+                        if(err.code === 'auth/email-already-in-use'){
+                            toast.error('Email already in use');
+                        } else if(err.code === 'auth/weak-password'){
+                            toast.error('Weak password');
+                        }else {
+                            console.log(err);
+                        }
+                    })
+                }
             }
     }
 
@@ -138,6 +145,10 @@ const Register = () => {
                     <FcGoogle/>
                     <span>Login with google</span>
                 </LoginWithButton>
+                <RowWrapper style={{ marginTop: "120px" }} >
+                        <Text>Already have an account?</Text>
+                        <Link to="/login">Login here</Link>
+                </RowWrapper>
             </Form>
         </PageWrapper>
     );

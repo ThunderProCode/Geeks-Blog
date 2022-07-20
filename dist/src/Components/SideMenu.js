@@ -30,6 +30,6 @@ const SideMenu = () => {
             React.createElement("li", null,
                 React.createElement("a", { href: "" }, "Settings")),
             React.createElement("li", null,
-                React.createElement("a", { href: "", onClick: logout }, "Logout")))));
+                React.createElement("a", { href: "", onClick: logoutOfApp }, "Logout")))));
 };
 export default SideMenu;

@@ -25,16 +25,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
-// Reset password
-const sendPasswordReset = async (email:string) => {
-    try {
-        await sendPasswordResetEmail(auth,email);
-    } catch (err:any) {
-        console.log(err);
-        alert(err.message);
-    }
-};
-
 export {
     auth,
     db,

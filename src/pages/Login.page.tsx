@@ -7,7 +7,7 @@ import { TextInput, Form, Label, CheckBox, CheckBoxLabel, PrimaryButton, LoginWi
 import { PageTitle, Text } from '../Styles/Titles.styles';
 
 // Icons
-import { MdOutlineAlternateEmail,MdLockOutline, MdOutlineFacebook } from "react-icons/md";
+import { MdOutlineAlternateEmail,MdLockOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 
 // react router
@@ -42,18 +42,14 @@ const Login = () => {
         })
         .catch((err) => {
             if(err.code === 'auth/invalid-credential'){
-                toast.error("Invalid Credentials",{
-                    position: toast.POSITION.TOP_CENTER,
-                })
+                toast.error("Invalid Credentials")
             } else if(err.code === 'auth/user-not-found'){
-                toast.error("Account not found",{
-                    position: toast.POSITION.TOP_CENTER,
-                })
+                toast.error("Account not found")
             } else if(err.code === 'auth/wrong-password'){
-                toast.error("Wrong password",{
-                    position: toast.POSITION.TOP_CENTER,
-                })
-            }else {
+                toast.error("Wrong password")
+            } else if(err.code === 'auth/invalid-email'){
+                toast.error("Invalid email")
+            } else {
                 console.log(err);
             }
         })
@@ -104,7 +100,6 @@ const Login = () => {
                         <Label htmlFor="password" >
                             <MdLockOutline/>
                         </Label>
-
                         <TextInput
                             type="password"
                             name="password" 
@@ -120,7 +115,7 @@ const Login = () => {
                             <CheckBox type="checkbox" />
                             <CheckBoxLabel>Remember me</CheckBoxLabel>
                         </CheckBoxWrapper>
-                        <a href="">Forgot Password?</a>
+                        <Link to="/passwordReset">Forgot Password?</Link>
                     </PasswordWrapper>
 
                      {/* Login button */}
