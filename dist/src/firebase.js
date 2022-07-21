@@ -1,9 +1,11 @@
-// Your web app's Firebase configuration
-export const firebaseConfig = {
-    apiKey: "AIzaSyC0OHtM8ZpVI4xfHFaIgDqLY2qGLybVudg",
-    authDomain: "geeksblogs-45cf2.firebaseapp.com",
-    projectId: "geeksblogs-45cf2",
-    storageBucket: "geeksblogs-45cf2.appspot.com",
-    messagingSenderId: "1071985615724",
-    appId: "1:1071985615724:web:7882467fcec73063ff4949",
-};
+import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+import { firebaseConfig } from './firebaseConfig';
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+export default app;

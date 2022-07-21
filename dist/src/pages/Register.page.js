@@ -11,17 +11,19 @@ import { FcGoogle } from "react-icons/fc";
 import { AiOutlineUser } from "react-icons/ai";
 import { MdOutlineAlternateEmail, MdLockOutline } from "react-icons/md";
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { createUserWithEmailAndPassword, auth } from '../services/auth.service';
-import { login, selectUser } from "../services/auth.slice";
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser } from "../services/auth.slice";
+// Services
+import { signup, signInWithGoogle } from '../services/auth.service';
+import { login } from '../services/auth.slice';
 const Register = () => {
     const user = useSelector(selectUser);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
     const [name, setName] = useState("");
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!name) {
@@ -29,30 +31,19 @@ const Register = () => {
         }
         else {
             if (password === password2) {
-                createUserWithEmailAndPassword(auth, email, password)
+                signup(email, password)
                     .then((userAuth) => {
                     dispatch(login({
                         email: userAuth.user.email,
                         uid: userAuth.user.uid,
                         displayName: name,
                     }));
-                })
-                    .catch((err) => {
-                    if (err.code === 'auth/email-already-in-use') {
-                        toast.error('Email already in use');
-                    }
-                    else if (err.code === 'auth/weak-password') {
-                        toast.error('Weak password');
-                    }
-                    else {
-                        console.log(err);
-                    }
                 });
             }
         }
     };
     const handleSignUpWithGoogle = () => {
-        console.log('Google signup');
+        signInWithGoogle();
     };
     useEffect(() => {
         if (user)

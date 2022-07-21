@@ -3,12 +3,12 @@ import { MenuUl } from '../Styles/Menu.styles';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../services/auth.slice';
-import { auth } from '../services/auth.service';
+import { logoutOfApp } from '../services/auth.service';
 const SideMenu = () => {
     const dispatch = useDispatch();
-    const logoutOfApp = () => {
+    const handleLogout = () => {
         dispatch(logout());
-        auth.signOut();
+        logoutOfApp();
     };
     return (React.createElement("div", { style: {
             background: 'black',
@@ -30,6 +30,6 @@ const SideMenu = () => {
             React.createElement("li", null,
                 React.createElement("a", { href: "" }, "Settings")),
             React.createElement("li", null,
-                React.createElement("a", { href: "", onClick: logoutOfApp }, "Logout")))));
+                React.createElement("a", { href: "", onClick: handleLogout }, "Logout")))));
 };
 export default SideMenu;

@@ -1,43 +1,55 @@
-import { initializeApp } from "firebase/app";
-import { 
-    GoogleAuthProvider,
-    getAuth,
-    signInWithPopup,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    sendPasswordResetEmail,
-    signOut,
-    onAuthStateChanged
-} from "firebase/auth";
-import { 
-    getFirestore,
-    query,
-    getDocs,
-    collection,
-    where,
-    addDoc
-} from "firebase/firestore";
+import { auth, googleProvider } from '../firebase';
+import { login } from './auth.slice';
+import { toast } from 'react-toastify';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
 
-import { firebaseConfig } from "../firebase";
+//const dispatch = useDispatch<AppDispatch>();
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const googleProvider = new GoogleAuthProvider();
+export const signup = async (email:string,password:string) => {
+    return createUserWithEmailAndPassword(auth,email,password)
+    .catch((err) => {
+        if(err.code === 'auth/email-already-in-use'){
+            toast.error('Email already in use');
+        } else if(err.code === 'auth/weak-password'){
+            toast.error('Weak password');
+        }else {
+            console.log(err);
+        }
+    })
+}
 
-export {
-    auth,
-    db,
-    signInWithPopup,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    sendPasswordResetEmail,
-    signOut,
-    onAuthStateChanged,
-    googleProvider,
-    query,
-    getDocs,
-    collection,
-    where,
-    addDoc,
-};
+export const signIn = async (email:string,password:string) => {
+    return signInWithEmailAndPassword(auth,email,password)
+    .catch((err) => {
+        if(err.code === 'auth/invalid-credential'){
+            toast.error("Invalid Credentials")
+        } else if(err.code === 'auth/user-not-found'){
+            toast.error("Account not found")
+        } else if(err.code === 'auth/wrong-password'){
+            toast.error("Wrong password")
+        } else if(err.code === 'auth/invalid-email'){
+            toast.error("Invalid email")
+        } else {
+            console.log(err);
+        }
+    })
+}
+
+export const signInWithGoogle = async () => {
+    return signInWithPopup(auth,googleProvider)
+    .catch((err) => {
+        toast.error(err.message)
+    })
+}
+
+export const passwordReset = (email:string) => {
+    sendPasswordResetEmail(auth,email)
+    .catch((err) => {
+        toast.error(err.message);
+    })
+}
+
+export const logoutOfApp = () => {
+    return signOut(auth);
+}
+

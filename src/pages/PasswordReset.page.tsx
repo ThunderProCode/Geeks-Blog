@@ -1,27 +1,21 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// Styles
 import { FormInputWrapper, PageWrapper } from '../Styles/Divs.styles';
 import { Label, PrimaryButton, TextInput } from '../Styles/Forms.styles';
 import { PageTitle, Text } from '../Styles/Titles.styles';
+
+// Icons
 import { MdOutlineAlternateEmail } from 'react-icons/md';
-import { sendPasswordResetEmail, auth } from '../services/auth.service';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+
+// Services
+import { passwordReset } from '../services/auth.service';
 
 const PasswordReset = () => {
 
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
-
-    const passwordReset = () => {
-        sendPasswordResetEmail(auth,email)
-        .then(() => {
-            toast.success('Check your email for instructions');
-            navigate('/login');
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
 
     return (
         <PageWrapper>
@@ -39,7 +33,7 @@ const PasswordReset = () => {
                             placeholder="Enter your email"
                         />
                     </FormInputWrapper>
-            <PrimaryButton type='button' onClick={passwordReset}>Send reset link</PrimaryButton>
+            <PrimaryButton type='button' onClick={ () => passwordReset(email)}>Send reset link</PrimaryButton>
         </PageWrapper>
     );
 };

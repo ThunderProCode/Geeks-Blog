@@ -14,23 +14,23 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate, Link } from 'react-router-dom';
 
 // Redux
-import { login, selectUser } from '../services/auth.slice';
-import { auth, signInWithEmailAndPassword, signInWithPopup, googleProvider } from '../services/auth.service';
+import { selectUser, updateRememberUser } from '../services/auth.slice';
+import { signIn, signInWithGoogle } from '../services/auth.service';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../App/Store';
+import { login } from '../services/auth.slice';
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-
     const user = useSelector(selectUser);
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth,email,password)
+        signIn(email,password)
         .then((userAuth) => {
             dispatch(
                 login({
@@ -40,23 +40,10 @@ const Login = () => {
                 })
             )
         })
-        .catch((err) => {
-            if(err.code === 'auth/invalid-credential'){
-                toast.error("Invalid Credentials")
-            } else if(err.code === 'auth/user-not-found'){
-                toast.error("Account not found")
-            } else if(err.code === 'auth/wrong-password'){
-                toast.error("Wrong password")
-            } else if(err.code === 'auth/invalid-email'){
-                toast.error("Invalid email")
-            } else {
-                console.log(err);
-            }
-        })
     }
 
-    const handleLoginWithGoogle = () => {
-        signInWithPopup(auth,googleProvider)
+    const handleGoogleLogin = () => {
+        signInWithGoogle()
         .then((userAuth) => {
             dispatch(
                 login({
@@ -70,9 +57,7 @@ const Login = () => {
 
     useEffect(() => {
         if(user){
-            toast.success("Login Successful", {
-                position: toast.POSITION.TOP_CENTER,
-            });
+            toast.success("Login Successful");
             navigate("/");
         }
     }, [user]);
@@ -129,15 +114,9 @@ const Login = () => {
                         <Text>or</Text>
                         <Line/>
                     </RowWrapper>
-
-                     {/* Login with facebook button */}
-                    {/* <LoginWithButton style={{ background: "#4267B2" }} >
-                        <MdOutlineFacebook/>
-                        <span>Login with Facebook</span>
-                    </LoginWithButton> */}
                     
                      {/* Login with google button */}
-                    <LoginWithButton style={{ background: "white" }} onClick={handleLoginWithGoogle} type="button" >
+                    <LoginWithButton style={{ background: "white" }} onClick={handleGoogleLogin} type="button" >
                         <FcGoogle/>
                         <span>Login with google</span>
                     </LoginWithButton>

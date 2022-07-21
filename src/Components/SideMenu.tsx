@@ -2,16 +2,16 @@ import React from 'react';
 import { MenuUl } from '../Styles/Menu.styles';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../services/auth.slice';
-import { auth } from '../services/auth.service';
+import { logout } from '../services/auth.slice'
+import {  logoutOfApp } from '../services/auth.service';
 
 const SideMenu = () => {
 
     const dispatch = useDispatch();
 
-    const logoutOfApp = () => {
+    const handleLogout = () => {
         dispatch(logout());
-        auth.signOut();
+        logoutOfApp();
     }
 
     return (
@@ -39,7 +39,7 @@ const SideMenu = () => {
                     <a href="">Settings</a>
                 </li>
                 <li>
-                    <a href="" onClick={logoutOfApp}>Logout</a>
+                    <a href="" onClick={handleLogout}>Logout</a>
                 </li>
             </MenuUl>
         </div>
