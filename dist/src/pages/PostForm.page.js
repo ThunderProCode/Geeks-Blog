@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 // Styles
 import Header from '../Components/Header';
 import { Form, TextInput, Label, PrimaryButton } from '../Styles/Forms.styles';
@@ -9,11 +10,13 @@ import { Loader } from '../Styles/Animations.styles';
 // Router
 import { useNavigate } from 'react-router-dom';
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
 import { selectLoading, selectProgress } from '../services/posts.slice';
 // Services
-import { createPost } from '../services/posts.service';
+import { createPost, uploadFile } from '../services/posts.service';
+import { updateLoading, updateProgress } from '../services/posts.slice';
+import { getDownloadURL } from 'firebase/storage';
 const PostForm = () => {
     const loading = useSelector(selectLoading);
     const progress = useSelector(selectProgress);
@@ -21,6 +24,7 @@ const PostForm = () => {
     const [image, setImage] = useState(null);
     const [postTitle, setPostTitle] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useEffect(() => {
         if (!user)
             navigate('/login');
@@ -28,7 +32,27 @@ const PostForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (image) {
-            createPost(image, user, postTitle);
+            const uploadTask = uploadFile(user, image);
+            uploadTask.on('state_changed', (snapshot) => {
+                const percent = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+                dispatch(updateProgress({
+                    progress: percent
+                }));
+                dispatch(updateLoading({
+                    loading: true
+                }));
+            }, (error) => {
+                toast.error(error.message);
+            }, () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    createPost(user, postTitle, downloadURL);
+                    dispatch(updateLoading({
+                        loading: false
+                    }));
+                }).catch(err => {
+                    toast.error(err.message);
+                });
+            });
         }
     };
     const onFileChange = (e) => {
@@ -42,7 +66,7 @@ const PostForm = () => {
             React.createElement(PageWrapper, null,
                 React.createElement(Text, null,
                     "Loading ",
-                    progress,
+                    progress.value,
                     " %"),
                 React.createElement(Loader, { style: { marginTop: '24px' } }))));
     }

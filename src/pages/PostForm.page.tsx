@@ -15,18 +15,21 @@ import { useNavigate } from 'react-router-dom';
 // Redux
 import { useSelector } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
-import { selectLoading, selectProgress } from '../services/posts.slice';
 
-// Services
-import { createPost,uploadFile } from '../services/posts.service';
+// Firebase
+import { addDoc, collection,Timestamp } from 'firebase/firestore';
+import { uploadBytesResumable, getDownloadURL, ref } from 'firebase/storage';
+import { storage,db } from '../firebase';
 
 const PostForm = () => {
 
-    const loading = useSelector(selectLoading);
-    const progress = useSelector(selectProgress);
-    const user = useSelector(selectUser);
+    // states
     const [image, setImage] = useState(null);
     const [postTitle, setPostTitle] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
+    const [ progress, setProgress] = useState(0);
+
+    const user = useSelector(selectUser);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,7 +39,34 @@ const PostForm = () => {
     const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault();
         if(image){
-            uploadFile(user,image,postTitle)
+            const storageRef = ref(storage, `imgsPosts/${user.uid}/${image.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, image);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const percent = Math.round(snapshot.bytesTransferred/ snapshot.totalBytes * 100)
+                    setProgress(percent);
+                    setIsLoading(true); 
+                },
+                (error) => {
+                    console.log(error);   
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        addDoc(collection(db,"posts"), {
+                            userId: user.uid,
+                            postTitle: postTitle,
+                            postDate: Timestamp.fromDate(new Date()),
+                            postImageUrl: downloadURL,
+                        });
+                        setIsLoading(false);
+                        toast.success('Post created');
+                        navigate('/');
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            ) 
         }
     }
 
@@ -48,11 +78,11 @@ const PostForm = () => {
         setPostTitle(e.target.value);
     }
 
-    if(loading){
+    if(isLoading){
         return(
             <>
                 <PageWrapper>
-                    <Text>Loading { progress } %</Text>
+                    <Text>Loading { progress.value } %</Text>
                     <Loader style={{ marginTop: '24px' }}/>
                 </PageWrapper>
             </>
