@@ -42,11 +42,13 @@ const Register = () => {
                 if(password === password2){
                     signup(email,password)
                     .then((userAuth) => {
-                        dispatch(login({
-                            email: userAuth.user.email,
-                            uid: userAuth.user.uid,
-                            displayName: name,
-                        }))
+                        if(userAuth){
+                            dispatch(login({
+                                email: userAuth.user.email,
+                                uid: userAuth.user.uid,
+                                displayName: name,
+                            }))
+                        }
                     })
                 }
             }

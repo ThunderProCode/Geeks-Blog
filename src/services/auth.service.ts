@@ -1,5 +1,4 @@
 import { auth, googleProvider } from '../firebase';
-import { login } from './auth.slice';
 import { toast } from 'react-toastify';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
 
@@ -38,7 +37,11 @@ export const signIn = async (email:string,password:string) => {
 export const signInWithGoogle = async () => {
     return signInWithPopup(auth,googleProvider)
     .catch((err) => {
-        toast.error(err.message)
+        if(err.code === 'auth/popup-closed-by-user'){
+            toast.error('Popup closed');
+        } else {
+            toast.error(err.message)
+        }
     })
 }
 

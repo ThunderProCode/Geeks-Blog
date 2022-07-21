@@ -10,36 +10,49 @@ import { FcGoogle } from "react-icons/fc";
 // react router
 import { useNavigate, Link } from 'react-router-dom';
 // Redux
-import { selectUser } from '../services/auth.slice';
+import { selectUser, updateRememberUser } from '../services/auth.slice';
 import { signIn, signInWithGoogle } from '../services/auth.service';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../services/auth.slice';
 const Login = () => {
+    // States
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
     const user = useSelector(selectUser);
+    // Functions
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    // Executes when Sign In button is clicked
     const handleSubmit = (e) => {
         e.preventDefault();
         signIn(email, password)
             .then((userAuth) => {
-            dispatch(login({
-                email: userAuth.user.email,
-                uid: userAuth.user.uid,
-                displayName: userAuth.user.displayName,
-            }));
+            if (userAuth) {
+                dispatch(login({
+                    email: userAuth.user.email,
+                    uid: userAuth.user.uid,
+                }));
+            }
         });
     };
+    // Executes when Sign In whith google button is clicked
     const handleGoogleLogin = () => {
         signInWithGoogle()
             .then((userAuth) => {
-            dispatch(login({
-                email: userAuth.user.email,
-                uid: userAuth.user.uid,
-                displayName: userAuth.user.displayName
-            }));
+            if (userAuth) {
+                dispatch(login({
+                    email: userAuth.user.email,
+                    uid: userAuth.user.uid,
+                }));
+            }
         });
+    };
+    // Updates the remember user state
+    const handleChange = (e) => {
+        const target = e.target;
+        dispatch(updateRememberUser({
+            rememberUser: target.checked
+        }));
     };
     useEffect(() => {
         if (user) {
@@ -61,7 +74,7 @@ const Login = () => {
                     React.createElement(TextInput, { type: "password", name: "password", value: password, onChange: (e) => setPassword(e.target.value), placeholder: "Enter your password" })),
                 React.createElement(PasswordWrapper, null,
                     React.createElement(CheckBoxWrapper, null,
-                        React.createElement(CheckBox, { type: "checkbox" }),
+                        React.createElement(CheckBox, { type: "checkbox", onChange: handleChange }),
                         React.createElement(CheckBoxLabel, null, "Remember me")),
                     React.createElement(Link, { to: "/passwordReset" }, "Forgot Password?")),
                 React.createElement(PrimaryButton, { type: "submit", style: { marginTop: "36px" } }, "Login"),

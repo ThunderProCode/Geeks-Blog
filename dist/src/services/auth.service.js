@@ -48,7 +48,12 @@ export const signIn = (email, password) => __awaiter(void 0, void 0, void 0, fun
 export const signInWithGoogle = () => __awaiter(void 0, void 0, void 0, function* () {
     return signInWithPopup(auth, googleProvider)
         .catch((err) => {
-        toast.error(err.message);
+        if (err.code === 'auth/popup-closed-by-user') {
+            toast.error('Popup closed');
+        }
+        else {
+            toast.error(err.message);
+        }
     });
 });
 export const passwordReset = (email) => {

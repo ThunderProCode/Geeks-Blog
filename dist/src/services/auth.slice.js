@@ -10,7 +10,9 @@ export const authSlice = createSlice({
     reducers: {
         login: (state, action) => {
             state.user = action.payload;
-            localStorage.setItem('user', JSON.stringify(action.payload));
+            if (state.rememberUser) {
+                localStorage.setItem('user', JSON.stringify(action.payload));
+            }
         },
         logout: (state) => {
             state.user = null;
@@ -18,7 +20,9 @@ export const authSlice = createSlice({
         },
         register: (state, action) => {
             state.user = action.payload;
-            localStorage.setItem('user', JSON.stringify(action.payload));
+            if (state.rememberUser) {
+                localStorage.setItem('user', JSON.stringify(action.payload));
+            }
         },
         updateRememberUser: (state, action) => {
             state.rememberUser = action.payload;

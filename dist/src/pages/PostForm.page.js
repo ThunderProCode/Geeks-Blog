@@ -10,21 +10,20 @@ import { Loader } from '../Styles/Animations.styles';
 // Router
 import { useNavigate } from 'react-router-dom';
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
-import { selectLoading, selectProgress } from '../services/posts.slice';
-// Services
-import { createPost, uploadFile } from '../services/posts.service';
-import { updateLoading, updateProgress } from '../services/posts.slice';
-import { getDownloadURL } from 'firebase/storage';
+// Firebase
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import { uploadBytesResumable, getDownloadURL, ref } from 'firebase/storage';
+import { storage, db } from '../firebase';
 const PostForm = () => {
-    const loading = useSelector(selectLoading);
-    const progress = useSelector(selectProgress);
-    const user = useSelector(selectUser);
+    // states
     const [image, setImage] = useState(null);
     const [postTitle, setPostTitle] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const user = useSelector(selectUser);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     useEffect(() => {
         if (!user)
             navigate('/login');
@@ -32,23 +31,25 @@ const PostForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (image) {
-            const uploadTask = uploadFile(user, image);
+            const storageRef = ref(storage, `imgsPosts/${user.uid}/${image.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, image);
             uploadTask.on('state_changed', (snapshot) => {
                 const percent = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-                dispatch(updateProgress({
-                    progress: percent
-                }));
-                dispatch(updateLoading({
-                    loading: true
-                }));
+                setProgress(percent);
+                setIsLoading(true);
             }, (error) => {
                 toast.error(error.message);
             }, () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    createPost(user, postTitle, downloadURL);
-                    dispatch(updateLoading({
-                        loading: false
-                    }));
+                    addDoc(collection(db, "posts"), {
+                        userId: user.uid,
+                        postTitle: postTitle,
+                        postDate: Timestamp.fromDate(new Date()),
+                        postImageUrl: downloadURL,
+                    });
+                    setIsLoading(false);
+                    toast.success('Post created');
+                    navigate('/');
                 }).catch(err => {
                     toast.error(err.message);
                 });
@@ -56,17 +57,21 @@ const PostForm = () => {
         }
     };
     const onFileChange = (e) => {
-        setImage(e.target.files[0]);
+        const target = e.target;
+        if (target.files) {
+            setImage(target.files[0]);
+        }
     };
     const onTitleChange = (e) => {
-        setPostTitle(e.target.value);
+        const target = e.target;
+        setPostTitle(target.value);
     };
-    if (loading) {
+    if (isLoading) {
         return (React.createElement(React.Fragment, null,
             React.createElement(PageWrapper, null,
                 React.createElement(Text, null,
                     "Loading ",
-                    progress.value,
+                    progress,
                     " %"),
                 React.createElement(Loader, { style: { marginTop: '24px' } }))));
     }

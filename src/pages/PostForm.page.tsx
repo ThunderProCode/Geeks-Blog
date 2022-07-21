@@ -24,7 +24,7 @@ import { storage,db } from '../firebase';
 const PostForm = () => {
 
     // states
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState<File | null>(null);
     const [postTitle, setPostTitle] = useState("");
     const [isLoading,setIsLoading] = useState(false);
     const [ progress, setProgress] = useState(0);
@@ -49,7 +49,7 @@ const PostForm = () => {
                     setIsLoading(true); 
                 },
                 (error) => {
-                    console.log(error);   
+                    toast.error(error.message);
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -63,26 +63,30 @@ const PostForm = () => {
                         toast.success('Post created');
                         navigate('/');
                     }).catch(err => {
-                        console.log(err);
+                        toast.error(err.message);
                     })
                 }
             ) 
         }
     }
 
-    const onFileChange = (e:any) => {
-        setImage(e.target.files[0]);
+    const onFileChange = (e:React.FormEvent) => {
+        const target = e.target as HTMLInputElement
+        if(target.files){
+            setImage(target.files[0]);
+        }
     }
 
     const onTitleChange = (e:React.FormEvent<HTMLInputElement>) => {
-        setPostTitle(e.target.value);
+        const target = e.target as HTMLInputElement
+        setPostTitle(target.value);
     }
 
     if(isLoading){
         return(
             <>
                 <PageWrapper>
-                    <Text>Loading { progress.value } %</Text>
+                    <Text>Loading { progress } %</Text>
                     <Loader style={{ marginTop: '24px' }}/>
                 </PageWrapper>
             </>

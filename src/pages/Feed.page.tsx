@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { PageWrapper } from '../Styles/Divs.styles';
 import { useNavigate } from 'react-router-dom';
 import Post from '../Components/Post';

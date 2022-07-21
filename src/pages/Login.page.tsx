@@ -22,37 +22,52 @@ import { login } from '../services/auth.slice';
 
 const Login = () => {
 
+    // States
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
     const user = useSelector(selectUser);
+
+    // Functions
+    const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
 
+    // Executes when Sign In button is clicked
     const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault();
         signIn(email,password)
         .then((userAuth) => {
-            dispatch(
-                login({
-                    email: userAuth.user.email,
-                    uid: userAuth.user.uid,
-                    displayName: userAuth.user.displayName,
-                })
-            )
+            if(userAuth){
+                dispatch(
+                    login({
+                        email: userAuth.user.email,
+                        uid: userAuth.user.uid,
+                    })
+                )
+            }
         })
     }
 
+    // Executes when Sign In whith google button is clicked
     const handleGoogleLogin = () => {
         signInWithGoogle()
         .then((userAuth) => {
-            dispatch(
-                login({
-                    email:userAuth.user.email,
-                    uid: userAuth.user.uid,
-                    displayName: userAuth.user.displayName
-                })
-            )
+            if(userAuth){
+                dispatch(
+                    login({
+                        email:userAuth.user.email,
+                        uid: userAuth.user.uid,
+                    })
+                )
+            }
         })
+    }
+
+    // Updates the remember user state
+    const handleChange = (e:React.FormEvent) => {
+        const target = e.target as HTMLInputElement
+        dispatch(updateRememberUser({
+            rememberUser: target.checked
+        }))
     }
 
     useEffect(() => {
@@ -97,8 +112,8 @@ const Login = () => {
                      {/* Remember user and password reset */}
                     <PasswordWrapper>
                         <CheckBoxWrapper>
-                            <CheckBox type="checkbox" />
-                            <CheckBoxLabel>Remember me</CheckBoxLabel>
+                            <CheckBox type="checkbox" onChange={handleChange}/>
+                            <CheckBoxLabel >Remember me</CheckBoxLabel>
                         </CheckBoxWrapper>
                         <Link to="/passwordReset">Forgot Password?</Link>
                     </PasswordWrapper>
