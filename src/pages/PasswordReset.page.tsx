@@ -17,6 +17,11 @@ const PasswordReset = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
+    const handlePasswordReset = () => {
+        passwordReset(email)
+        navigate('login');
+    }
+
     return (
         <PageWrapper>
             <PageTitle>Password reset</PageTitle>
@@ -33,7 +38,7 @@ const PasswordReset = () => {
                             placeholder="Enter your email"
                         />
                     </FormInputWrapper>
-            <PrimaryButton type='button' onClick={ () => passwordReset(email)}>Send reset link</PrimaryButton>
+            <PrimaryButton type='button' onClick={handlePasswordReset}>Send reset link</PrimaryButton>
         </PageWrapper>
     );
 };
