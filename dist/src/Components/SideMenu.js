@@ -26,7 +26,7 @@ const SideMenu = () => {
             React.createElement("li", null,
                 React.createElement(Link, { to: '/newPost' }, "New Post")),
             React.createElement("li", null,
-                React.createElement("a", { href: "" }, "My posts")),
+                React.createElement(Link, { to: '/myPosts' }, "My posts")),
             React.createElement("li", null,
                 React.createElement("a", { href: "" }, "Settings")),
             React.createElement("li", null,

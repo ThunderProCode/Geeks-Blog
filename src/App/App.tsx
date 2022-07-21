@@ -14,6 +14,7 @@ import PasswordReset from '../pages/PasswordReset.page';
 
 // Router 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MyPosts from '../pages/MyPosts.page';
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
                     <Route path="/login" element={<Login/>} />
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />
+                    <Route path='/myPosts' element={ <MyPosts/> } />
                     <Route path='/passwordReset' element={ <PasswordReset/> }/>
                 </Routes>
             </BrowserRouter>

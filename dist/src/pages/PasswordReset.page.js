@@ -11,6 +11,10 @@ import { passwordReset } from '../services/auth.service';
 const PasswordReset = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
+    const handlePasswordReset = () => {
+        passwordReset(email);
+        navigate('login');
+    };
     return (React.createElement(PageWrapper, null,
         React.createElement(PageTitle, null, "Password reset"),
         React.createElement(Text, null, "Enter your email adress below to reset your password"),
@@ -18,6 +22,6 @@ const PasswordReset = () => {
             React.createElement(Label, { htmlFor: "email" },
                 React.createElement(MdOutlineAlternateEmail, null)),
             React.createElement(TextInput, { type: "email", name: "email", value: email, onChange: (e) => setEmail(e.target.value), placeholder: "Enter your email" })),
-        React.createElement(PrimaryButton, { type: 'button', onClick: () => passwordReset(email) }, "Send reset link")));
+        React.createElement(PrimaryButton, { type: 'button', onClick: handlePasswordReset }, "Send reset link")));
 };
 export default PasswordReset;

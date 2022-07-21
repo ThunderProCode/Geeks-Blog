@@ -11,6 +11,7 @@ import PostForm from '../pages/PostForm.page';
 import PasswordReset from '../pages/PasswordReset.page';
 // Router 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MyPosts from '../pages/MyPosts.page';
 const App = () => {
     return (React.createElement(React.Fragment, null,
         React.createElement(GlobalStyles, null),
@@ -20,6 +21,7 @@ const App = () => {
                 React.createElement(Route, { path: "/login", element: React.createElement(Login, null) }),
                 React.createElement(Route, { path: "/register", element: React.createElement(Register, null) }),
                 React.createElement(Route, { path: '/newPost', element: React.createElement(PostForm, null) }),
+                React.createElement(Route, { path: '/myPosts', element: React.createElement(MyPosts, null) }),
                 React.createElement(Route, { path: '/passwordReset', element: React.createElement(PasswordReset, null) }))),
         React.createElement(ToastContainer, { autoClose: 2000, theme: "dark", position: 'top-center' })));
 };

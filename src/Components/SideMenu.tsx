@@ -33,7 +33,7 @@ const SideMenu = () => {
                     <Link to='/newPost'>New Post</Link>
                 </li>
                 <li>
-                    <a href="">My posts</a>
+                    <Link to='/myPosts'>My posts</Link>
                 </li>
                 <li>
                     <a href="">Settings</a>
