@@ -14,7 +14,7 @@ export const usePosts = (uid) => __awaiter(void 0, void 0, void 0, function* () 
     const q = query(collection(db, "posts"), where("userId", "==", uid));
     const querySnapshot = yield getDocs(q);
     querySnapshot.forEach((doc) => {
-        posts.push(doc);
+        posts.push(doc.data());
     });
     return posts;
 });

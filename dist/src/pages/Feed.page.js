@@ -16,9 +16,9 @@ const Feed = () => {
     return (React.createElement(PageWrapper, null,
         React.createElement(Header, null),
         React.createElement("div", { style: { marginTop: '50px' } },
-            React.createElement(Post, null),
-            React.createElement(Post, null),
-            React.createElement(Post, null),
-            React.createElement(Post, null))));
+            React.createElement(Post, { imageUrl: 'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info' }),
+            React.createElement(Post, { imageUrl: 'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info' }),
+            React.createElement(Post, { imageUrl: 'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info' }),
+            React.createElement(Post, { imageUrl: 'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info' }))));
 };
 export default Feed;

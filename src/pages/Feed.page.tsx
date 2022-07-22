@@ -16,15 +16,17 @@ const Feed = () => {
             navigate("/login");
         }
     },[user]);
+    
+    
 
     return (
         <PageWrapper>
             <Header></Header>
             <div style={{marginTop: '50px'}}>
-                <Post></Post>
-                <Post></Post>
-                <Post></Post>
-                <Post></Post>
+                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
+                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
+                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
+                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
             </div>
         </PageWrapper>
     );

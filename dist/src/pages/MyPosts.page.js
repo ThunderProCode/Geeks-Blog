@@ -1,35 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
 import { usePosts } from '../hooks/usePosts';
-import { PageTitle } from '../Styles/Titles.styles';
 import { useNavigate } from 'react-router-dom';
-import { PageWrapper } from '../Styles/Divs.styles';
 import Header from '../Components/Header';
-import { PrimaryButton } from '../Styles/Forms.styles';
+import Post from '../Components/Post';
+import { PageWrapper } from '../Styles/Divs.styles';
 const MyPosts = () => {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
+    const [posts, setPosts] = useState([]);
     useEffect(() => {
         if (!user) {
             navigate('/login');
         }
-    }, [user]);
-    const printPosts = () => {
-        console.log();
-        const userPosts = usePosts(user.uid);
-        userPosts.then((posts) => {
-            posts.forEach((post) => {
-                console.log(post.data());
+        else {
+            usePosts(user.uid)
+                .then((userPosts) => {
+                setPosts(userPosts);
             });
-        })
-            .catch((error) => {
-            console.log(error);
-        });
-    };
+        }
+    }, [user]);
     return (React.createElement(PageWrapper, null,
         React.createElement(Header, null),
-        React.createElement(PageTitle, null, "My posts"),
-        React.createElement(PrimaryButton, { type: 'button', onClick: printPosts }, " Print Posts ")));
+        React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { imageUrl: post.postImageUrl, key: post.postTitle })))));
 };
 export default MyPosts;
