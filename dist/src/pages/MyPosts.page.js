@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import Post from '../Components/Post';
 import { PageWrapper } from '../Styles/Divs.styles';
+import { getElapsedTime } from '../utils/converters.util';
 const MyPosts = () => {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
@@ -23,6 +24,6 @@ const MyPosts = () => {
     }, [user]);
     return (React.createElement(PageWrapper, null,
         React.createElement(Header, null),
-        React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { imageUrl: post.postImageUrl, key: post.postTitle })))));
+        React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { imageUrl: post.postImageUrl, timeStamp: getElapsedTime(post.postDate.toDate()), displayName: user.displayName, key: post.postTitle })))));
 };
 export default MyPosts;

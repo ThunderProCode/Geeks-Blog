@@ -22,6 +22,8 @@ import { selectUser } from "../services/auth.slice";
 import { signup, signInWithGoogle } from '../services/auth.service';
 import { AppDispatch } from "../App/Store";
 import { login } from '../services/auth.slice';
+import { addUserToDb, userExists } from '../services/dataBase.service';
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
 
@@ -43,6 +45,12 @@ const Register = () => {
                     signup(email,password)
                     .then((userAuth) => {
                         if(userAuth){
+                            if(!userExists(userAuth.user.uid)){
+                                updateProfile(userAuth.user, {
+                                    displayName: name
+                                })
+                                addUserToDb(userAuth.user);
+                            }
                             dispatch(login({
                                 email: userAuth.user.email,
                                 uid: userAuth.user.uid,
@@ -55,7 +63,21 @@ const Register = () => {
     }
 
     const handleSignUpWithGoogle = () => {
-        signInWithGoogle();
+        signInWithGoogle()
+        .then((userAuth) => {
+            if(userAuth){
+                if(!userExists(userAuth.user.uid)){
+                    addUserToDb(userAuth.user);
+                }
+                dispatch(
+                    login({
+                        email:userAuth.user.email,
+                        uid: userAuth.user.uid,
+                        displayName: userAuth.user.displayName
+                    })
+                )
+            }
+        })
     }
 
     useEffect( () => {

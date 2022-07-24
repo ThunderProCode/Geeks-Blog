@@ -10,3 +10,13 @@ export const usePosts = async (uid:string):Promise<DocumentData[]> => {
     })
     return posts;
 }
+
+export const getAllPosts = async ():Promise<DocumentData[]> => {
+    const posts:DocumentData[] = [];
+    const q = query(collection(db,"posts"));
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+        posts.push(doc.data());
+    });
+    return posts;
+}

@@ -1,19 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageWrapper } from '../Styles/Divs.styles';
 import { useNavigate } from 'react-router-dom';
 import Post from '../Components/Post';
 import Header from '../Components/Header';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
+import { DocumentData } from 'firebase/firestore';
+import { getAllPosts } from '../hooks/usePosts';
+import { getElapsedTime } from '../utils/converters.util';
+import { User } from 'firebase/auth';
 
 const Feed = () => {
 
-    const user = useSelector(selectUser);
+    const user:User = useSelector(selectUser);
     const navigate = useNavigate();
-    
+    const [posts,setPosts] = useState<DocumentData[]>([]);
+
     useEffect(() => {
         if(!user){
             navigate("/login");
+        }else {
+            getAllPosts()
+            .then((allposts) => {
+                setPosts(allposts);
+                allposts.forEach((post) => {
+                    console.log(getElapsedTime( post.postDate.toDate()));
+                })
+            })
         }
     },[user]);
     
@@ -23,10 +36,11 @@ const Feed = () => {
         <PageWrapper>
             <Header></Header>
             <div style={{marginTop: '50px'}}>
-                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
-                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
-                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
-                <Post imageUrl={'https://cnnespanol.cnn.com/wp-content/uploads/2021/10/211012095305-lego-full-169.jpg?quality=100&strip=info'} ></Post>
+                {
+                    posts.map((post) => 
+                        <Post imageUrl={post.postImageUrl} timeStamp={ getElapsedTime(post.postDate.toDate()) } displayName={ user.displayName }  key={post.postTitle} ></Post>
+                    )
+                }
             </div>
         </PageWrapper>
     );

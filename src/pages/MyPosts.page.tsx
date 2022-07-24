@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
 import { usePosts } from '../hooks/usePosts';
-import { PageTitle } from '../Styles/Titles.styles';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import Post from '../Components/Post';
 import { DocumentData } from 'firebase/firestore';
 import { PageWrapper } from '../Styles/Divs.styles';
+import { getElapsedTime } from '../utils/converters.util';
 
 const MyPosts = () => {
 
@@ -31,7 +31,7 @@ const MyPosts = () => {
             <Header/>
             <div style={{marginTop: '50px'}}>
             {
-                posts.map((post) => <Post imageUrl={post.postImageUrl} key={post.postTitle}></Post>)
+                posts.map((post) => <Post imageUrl={post.postImageUrl} timeStamp={ getElapsedTime(post.postDate.toDate())  } displayName={user.displayName}  key={post.postTitle}></Post>)
             }
             </div>
         </PageWrapper>

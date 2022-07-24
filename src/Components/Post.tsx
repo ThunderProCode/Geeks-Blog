@@ -6,7 +6,9 @@ import { AiOutlineHeart, AiFillHeart,AiFillEye,AiOutlineComment } from 'react-ic
 import { BsThreeDots } from 'react-icons/bs';
 
 interface PostProps {
-    imageUrl:string
+    imageUrl:string,
+    timeStamp:string,
+    displayName:string,
 }
 
 const Post = (props:PostProps) => {
@@ -16,8 +18,8 @@ const Post = (props:PostProps) => {
                 <div style={{display: 'flex',marginTop: '4px'}}>
                     <PostProfilePic src='https://www.lego.com/cdn/cs/set/assets/blt71d92ec474835427/5005528.jpg'/>
                     <div style={{marginLeft: '12px'}} >
-                        <PostTitle>Hector Acosta</PostTitle>
-                        <PostTime>2 min ago</PostTime>
+                        <PostTitle>{ props.displayName }</PostTitle>
+                        <PostTime>{ props.timeStamp }</PostTime>
                     </div>
                 </div>
                 <BsThreeDots style={{color: 'white', fontSize: '22px'}}/>

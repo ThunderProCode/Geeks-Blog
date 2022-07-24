@@ -19,6 +19,7 @@ import { signIn, signInWithGoogle } from '../services/auth.service';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../App/Store';
 import { login } from '../services/auth.slice';
+import { addUserToDb, userExists } from '../services/dataBase.service';
 
 const Login = () => {
 
@@ -52,10 +53,14 @@ const Login = () => {
         signInWithGoogle()
         .then((userAuth) => {
             if(userAuth){
+                if(!userExists(userAuth.user.uid)){
+                    addUserToDb(userAuth.user);
+                }
                 dispatch(
                     login({
                         email:userAuth.user.email,
                         uid: userAuth.user.uid,
+                        displayName: userAuth.user.displayName
                     })
                 )
             }

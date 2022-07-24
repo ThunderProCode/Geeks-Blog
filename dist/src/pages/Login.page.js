@@ -14,6 +14,7 @@ import { selectUser, updateRememberUser } from '../services/auth.slice';
 import { signIn, signInWithGoogle } from '../services/auth.service';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../services/auth.slice';
+import { addUserToDb, userExists } from '../services/dataBase.service';
 const Login = () => {
     // States
     const [email, setEmail] = useState("");
@@ -40,9 +41,13 @@ const Login = () => {
         signInWithGoogle()
             .then((userAuth) => {
             if (userAuth) {
+                if (!userExists(userAuth.user.uid)) {
+                    addUserToDb(userAuth.user);
+                }
                 dispatch(login({
                     email: userAuth.user.email,
                     uid: userAuth.user.uid,
+                    displayName: userAuth.user.displayName
                 }));
             }
         });

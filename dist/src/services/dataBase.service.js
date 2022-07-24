@@ -7,23 +7,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-export const usePosts = (uid) => __awaiter(void 0, void 0, void 0, function* () {
-    const posts = [];
-    const q = query(collection(db, "posts"), where("userId", "==", uid));
-    const querySnapshot = yield getDocs(q);
-    querySnapshot.forEach((doc) => {
-        posts.push(doc.data());
+// Create a new user in db
+export const addUserToDb = (user) => {
+    addDoc(collection(db, "users"), {
+        userId: user.uid,
+        displayName: user.displayName,
+        memberSince: user.metadata.creationTime,
+        profilePic: user.photoURL
+    })
+        .catch((err) => {
+        console.log(err);
     });
-    return posts;
-});
-export const getAllPosts = () => __awaiter(void 0, void 0, void 0, function* () {
-    const posts = [];
-    const q = query(collection(db, "posts"));
+};
+// Check if user exists 
+export const userExists = (uid) => __awaiter(void 0, void 0, void 0, function* () {
+    const q = query(collection(db, "users"), where("uid", "==", uid));
     const querySnapshot = yield getDocs(q);
-    querySnapshot.forEach((doc) => {
-        posts.push(doc.data());
-    });
-    return posts;
+    if (querySnapshot.docs) {
+        return false;
+    }
+    return true;
 });
