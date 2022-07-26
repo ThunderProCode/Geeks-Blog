@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth';
 import { addDoc, collection, query, where,getDocs} from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -25,3 +24,4 @@ export const userExists = async (uid:string):Promise<boolean> => {
     }
     return false;
 }
+

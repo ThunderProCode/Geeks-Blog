@@ -1,7 +1,6 @@
 import { auth, googleProvider } from '../firebase';
 import { toast } from 'react-toastify';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
-import { addUserToDb, userExists } from './dataBase.service';
 
 //const dispatch = useDispatch<AppDispatch>();
 

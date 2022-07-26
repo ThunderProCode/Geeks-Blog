@@ -9,6 +9,7 @@ import { DocumentData } from 'firebase/firestore';
 import { getAllPosts } from '../hooks/usePosts';
 import { getElapsedTime } from '../utils/converters.util';
 import { User } from 'firebase/auth';
+import { getUserByUid } from '../hooks/userUsers';
 
 const Feed = () => {
 
@@ -23,14 +24,9 @@ const Feed = () => {
             getAllPosts()
             .then((allposts) => {
                 setPosts(allposts);
-                allposts.forEach((post) => {
-                    console.log(getElapsedTime( post.postDate.toDate()));
-                })
             })
         }
     },[user]);
-    
-    
 
     return (
         <PageWrapper>
@@ -38,7 +34,7 @@ const Feed = () => {
             <div style={{marginTop: '50px'}}>
                 {
                     posts.map((post) => 
-                        <Post imageUrl={post.postImageUrl} timeStamp={ getElapsedTime(post.postDate.toDate()) } displayName={ user.displayName }  key={post.postTitle} ></Post>
+                        <Post postTime={getElapsedTime(post.postDate.toDate())} imageUrl={post.postImageUrl} uid={post.userId} key={post.postTitle} ></Post>
                     )
                 }
             </div>

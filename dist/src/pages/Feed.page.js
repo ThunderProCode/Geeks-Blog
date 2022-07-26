@@ -19,14 +19,11 @@ const Feed = () => {
             getAllPosts()
                 .then((allposts) => {
                 setPosts(allposts);
-                allposts.forEach((post) => {
-                    console.log(getElapsedTime(post.postDate.toDate()));
-                });
             });
         }
     }, [user]);
     return (React.createElement(PageWrapper, null,
         React.createElement(Header, null),
-        React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { imageUrl: post.postImageUrl, timeStamp: getElapsedTime(post.postDate.toDate()), displayName: user.displayName, key: post.postTitle })))));
+        React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { postTime: getElapsedTime(post.postDate.toDate()), imageUrl: post.postImageUrl, uid: post.userId, key: post.postTitle })))));
 };
 export default Feed;

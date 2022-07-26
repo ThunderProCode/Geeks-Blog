@@ -24,7 +24,6 @@ import { AppDispatch } from "../App/Store";
 import { login } from '../services/auth.slice';
 import { addUserToDb, userExists } from '../services/dataBase.service';
 import { updateProfile } from 'firebase/auth';
-import { ids } from "webpack";
 
 const Register = () => {
 

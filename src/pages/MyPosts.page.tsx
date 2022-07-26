@@ -31,7 +31,7 @@ const MyPosts = () => {
             <Header/>
             <div style={{marginTop: '50px'}}>
             {
-                posts.map((post) => <Post imageUrl={post.postImageUrl} timeStamp={ getElapsedTime(post.postDate.toDate())  } displayName={user.displayName}  key={post.postTitle}></Post>)
+                posts.map((post) => <Post postTime={getElapsedTime(post.postDate.toDate())} imageUrl={post.postImageUrl} uid={post.userId}  key={post.postTitle}></Post>)
             }
             </div>
         </PageWrapper>
