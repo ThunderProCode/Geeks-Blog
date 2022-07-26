@@ -10,12 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 // Create a new user in db
-export const addUserToDb = (user) => {
+export const addUserToDb = (userId, name, creationTime, photoUrl, userEmail) => {
     addDoc(collection(db, "users"), {
-        userId: user.uid,
-        displayName: user.displayName,
-        memberSince: user.metadata.creationTime,
-        profilePic: user.photoURL
+        displayName: name,
+        email: userEmail,
+        memberSince: creationTime,
+        profilePic: photoUrl,
+        uid: userId,
     })
         .catch((err) => {
         console.log(err);
@@ -25,8 +26,8 @@ export const addUserToDb = (user) => {
 export const userExists = (uid) => __awaiter(void 0, void 0, void 0, function* () {
     const q = query(collection(db, "users"), where("uid", "==", uid));
     const querySnapshot = yield getDocs(q);
-    if (querySnapshot.docs) {
-        return false;
+    if (querySnapshot.size > 0) {
+        return true;
     }
-    return true;
+    return false;
 });

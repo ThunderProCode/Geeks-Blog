@@ -24,6 +24,7 @@ import { AppDispatch } from "../App/Store";
 import { login } from '../services/auth.slice';
 import { addUserToDb, userExists } from '../services/dataBase.service';
 import { updateProfile } from 'firebase/auth';
+import { ids } from "webpack";
 
 const Register = () => {
 
@@ -45,12 +46,17 @@ const Register = () => {
                     signup(email,password)
                     .then((userAuth) => {
                         if(userAuth){
-                            if(!userExists(userAuth.user.uid)){
-                                updateProfile(userAuth.user, {
-                                    displayName: name
-                                })
-                                addUserToDb(userAuth.user);
-                            }
+                            const user = userAuth.user;
+                            userExists(user.uid)
+                            .then((res) => {
+                                if(!res){
+                                    updateProfile(user, {
+                                        displayName: name
+                                    })
+                                    const creationTime = user.metadata.creationTime ? user.metadata.creationTime : "";
+                                    addUserToDb(user.uid,name,creationTime,"",email);
+                                }
+                            })
                             dispatch(login({
                                 email: userAuth.user.email,
                                 uid: userAuth.user.uid,
@@ -66,8 +72,10 @@ const Register = () => {
         signInWithGoogle()
         .then((userAuth) => {
             if(userAuth){
-                if(!userExists(userAuth.user.uid)){
-                    addUserToDb(userAuth.user);
+                const user = userAuth.user;
+                if(!userExists(user.uid)){
+                    const creationTime = user.metadata.creationTime ? user.metadata.creationTime : "";
+                    addUserToDb(user.uid,name,creationTime,"",email);
                 }
                 dispatch(
                     login({

@@ -3,12 +3,13 @@ import { addDoc, collection, query, where,getDocs} from 'firebase/firestore';
 import { db } from '../firebase';
 
 // Create a new user in db
-export const addUserToDb = (user:User) => {
+export const addUserToDb = (userId:string, name:string, creationTime:string,photoUrl: string, userEmail:string) => {
     addDoc(collection(db,"users"), {
-        userId: user.uid,
-        displayName: user.displayName,
-        memberSince: user.metadata.creationTime,
-        profilePic: user.photoURL
+        displayName: name,
+        email: userEmail,
+        memberSince: creationTime,
+        profilePic: photoUrl,
+        uid: userId,
     })
     .catch((err) => {
         console.log(err)
@@ -18,9 +19,9 @@ export const addUserToDb = (user:User) => {
 // Check if user exists 
 export const userExists = async (uid:string):Promise<boolean> => {
     const q = query(collection(db,"users"), where("uid","==", uid))
-    const querySnapshot = await getDocs(q);
-    if(querySnapshot.docs){
-        return false;
+    const querySnapshot = await getDocs(q)
+    if(querySnapshot.size > 0){
+        return true;
     }
-    return true;
+    return false;
 }

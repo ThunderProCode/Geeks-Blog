@@ -14,12 +14,14 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate, Link } from 'react-router-dom';
 
 // Redux
-import { selectUser, updateRememberUser } from '../services/auth.slice';
-import { signIn, signInWithGoogle } from '../services/auth.service';
-import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../App/Store';
 import { login } from '../services/auth.slice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser, updateRememberUser } from '../services/auth.slice';
+
+// Services
 import { addUserToDb, userExists } from '../services/dataBase.service';
+import { signIn, signInWithGoogle } from '../services/auth.service';
 
 const Login = () => {
 
@@ -53,9 +55,14 @@ const Login = () => {
         signInWithGoogle()
         .then((userAuth) => {
             if(userAuth){
-                if(!userExists(userAuth.user.uid)){
-                    addUserToDb(userAuth.user);
-                }
+                const user = userAuth.user;
+                userExists(user.uid)
+                .then((res) => {
+                    if(!res){
+                        const creationTime = user.metadata.creationTime ? user.metadata.creationTime : "";
+                        addUserToDb(user.uid,user.displayName,creationTime,user.photoURL,user.email);
+                    }
+                })
                 dispatch(
                     login({
                         email:userAuth.user.email,

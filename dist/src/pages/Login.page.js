@@ -9,12 +9,12 @@ import { MdOutlineAlternateEmail, MdLockOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 // react router
 import { useNavigate, Link } from 'react-router-dom';
-// Redux
-import { selectUser, updateRememberUser } from '../services/auth.slice';
-import { signIn, signInWithGoogle } from '../services/auth.service';
-import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../services/auth.slice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser, updateRememberUser } from '../services/auth.slice';
+// Services
 import { addUserToDb, userExists } from '../services/dataBase.service';
+import { signIn, signInWithGoogle } from '../services/auth.service';
 const Login = () => {
     // States
     const [email, setEmail] = useState("");
@@ -41,9 +41,14 @@ const Login = () => {
         signInWithGoogle()
             .then((userAuth) => {
             if (userAuth) {
-                if (!userExists(userAuth.user.uid)) {
-                    addUserToDb(userAuth.user);
-                }
+                const user = userAuth.user;
+                userExists(user.uid)
+                    .then((res) => {
+                    if (!res) {
+                        const creationTime = user.metadata.creationTime ? user.metadata.creationTime : "";
+                        addUserToDb(user.uid, user.displayName, creationTime, user.photoURL, user.email);
+                    }
+                });
                 dispatch(login({
                     email: userAuth.user.email,
                     uid: userAuth.user.uid,
