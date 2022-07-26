@@ -15,12 +15,14 @@ interface PostProps {
 
 const Post = (props:PostProps) => {
 
+    const [profilePicture,setProfilePicture] = useState("");
     const [displayName, setDisplayName] = useState("");
 
     useEffect(() => {
         getUserByUid(props.uid)
         .then((postCreator) => {
             setDisplayName(postCreator.displayName);
+            setProfilePicture(postCreator.profilePic)
         })        
     },[props])
 
@@ -28,7 +30,7 @@ const Post = (props:PostProps) => {
         <PostWrapper>
             <div style={{width: '90%',marginBottom: '12px',display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                 <div style={{display: 'flex',marginTop: '4px'}}>
-                    <PostProfilePic src='https://www.lego.com/cdn/cs/set/assets/blt71d92ec474835427/5005528.jpg'/>
+                    <PostProfilePic src={profilePicture}/>
                     <div style={{marginLeft: '12px'}} >
                         <PostTitle>{ displayName }</PostTitle>
                         <PostTime>{ props.postTime }</PostTime>

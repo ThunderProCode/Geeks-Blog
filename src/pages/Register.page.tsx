@@ -53,7 +53,7 @@ const Register = () => {
                                         displayName: name
                                     })
                                     const creationTime = user.metadata.creationTime ? user.metadata.creationTime : "";
-                                    addUserToDb(user.uid,name,creationTime,"",email);
+                                    addUserToDb(user.uid,name,creationTime,"https://beomy.co.il/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",email);
                                 }
                             })
                             dispatch(login({
@@ -74,7 +74,7 @@ const Register = () => {
                 const user = userAuth.user;
                 if(!userExists(user.uid)){
                     const creationTime = user.metadata.creationTime ? user.metadata.creationTime : "";
-                    addUserToDb(user.uid,name,creationTime,"",email);
+                    addUserToDb(user.uid,name,creationTime,user.photoURL,email);
                 }
                 dispatch(
                     login({

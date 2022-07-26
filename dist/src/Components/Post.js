@@ -6,17 +6,19 @@ import { AiOutlineHeart, AiFillEye, AiOutlineComment } from 'react-icons/ai';
 import { BsThreeDots } from 'react-icons/bs';
 import { getUserByUid } from '../hooks/userUsers';
 const Post = (props) => {
+    const [profilePicture, setProfilePicture] = useState("");
     const [displayName, setDisplayName] = useState("");
     useEffect(() => {
         getUserByUid(props.uid)
             .then((postCreator) => {
             setDisplayName(postCreator.displayName);
+            setProfilePicture(postCreator.profilePic);
         });
     }, [props]);
     return (React.createElement(PostWrapper, null,
         React.createElement("div", { style: { width: '90%', marginBottom: '12px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' } },
             React.createElement("div", { style: { display: 'flex', marginTop: '4px' } },
-                React.createElement(PostProfilePic, { src: 'https://www.lego.com/cdn/cs/set/assets/blt71d92ec474835427/5005528.jpg' }),
+                React.createElement(PostProfilePic, { src: profilePicture }),
                 React.createElement("div", { style: { marginLeft: '12px' } },
                     React.createElement(PostTitle, null, displayName),
                     React.createElement(PostTime, null, props.postTime))),
