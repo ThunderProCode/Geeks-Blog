@@ -21,9 +21,7 @@ const Header = (props:headerProps) => {
 
     useEffect(() => {
         if(user){
-            setProfilePicture(user.profilePic)
-            console.log(user)
-            console.log(profilePicture);
+            setProfilePicture(user.profilePic);
         }
     },[user])
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Header from '../Components/Header';
 import { PageWrapper } from '../Styles/Divs.styles';
-import { PageTitle } from '../Styles/Titles.styles';
+import { Text } from '../Styles/Titles.styles';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,8 @@ const Settings = () => {
     });
     return (React.createElement(PageWrapper, null,
         React.createElement(Header, { pageTitle: 'Settings' }),
-        React.createElement(PageTitle, null, "Settings")));
+        React.createElement("div", null,
+            React.createElement(Text, null, "Name:"),
+            React.createElement(Text, null, "ProfilePicture"))));
 };
 export default Settings;

@@ -29,7 +29,6 @@ const App = () => {
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />
                     <Route path='/myPosts' element={ <MyPosts/> } />
-                    <Route path='/settings' element={ <Settings/> } />
                     <Route path='/passwordReset' element={ <PasswordReset/> }/>
                 </Routes>
             </BrowserRouter>

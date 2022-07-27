@@ -13,8 +13,6 @@ const Header = (props) => {
     useEffect(() => {
         if (user) {
             setProfilePicture(user.profilePic);
-            console.log(user);
-            console.log(profilePicture);
         }
     }, [user]);
     return (React.createElement(React.Fragment, null,

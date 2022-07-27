@@ -8,6 +8,7 @@ import Post from '../Components/Post';
 import { DocumentData } from 'firebase/firestore';
 import { PageWrapper } from '../Styles/Divs.styles';
 import { getElapsedTime } from '../utils/converters.util';
+import { Text } from '../Styles/Titles.styles';
 
 const MyPosts = () => {
 
@@ -25,6 +26,15 @@ const MyPosts = () => {
             });
         }
     },[user])
+
+    if(posts.length === 0){
+        return(
+            <PageWrapper>
+                <Header pageTitle='MyPosts'></Header>
+                <Text>You haven't posted anything yet</Text>
+            </PageWrapper>
+        )
+    }
 
     return (        
         <PageWrapper>

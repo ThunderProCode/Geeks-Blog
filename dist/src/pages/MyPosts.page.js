@@ -7,6 +7,7 @@ import Header from '../Components/Header';
 import Post from '../Components/Post';
 import { PageWrapper } from '../Styles/Divs.styles';
 import { getElapsedTime } from '../utils/converters.util';
+import { Text } from '../Styles/Titles.styles';
 const MyPosts = () => {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
@@ -22,6 +23,11 @@ const MyPosts = () => {
             });
         }
     }, [user]);
+    if (posts.length === 0) {
+        return (React.createElement(PageWrapper, null,
+            React.createElement(Header, { pageTitle: 'MyPosts' }),
+            React.createElement(Text, null, "You haven't posted anything yet")));
+    }
     return (React.createElement(PageWrapper, null,
         React.createElement(Header, { pageTitle: 'MyPosts' }),
         React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { postTime: getElapsedTime(post.postDate.toDate()), imageUrl: post.postImageUrl, uid: post.userId, key: post.postTitle })))));
