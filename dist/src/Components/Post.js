@@ -13,6 +13,10 @@ const Post = (props) => {
             .then((postCreator) => {
             setDisplayName(postCreator.displayName);
             setProfilePicture(postCreator.profilePic);
+            console.log(`Profile picture${profilePicture}`);
+        })
+            .catch((err) => {
+            console.log(err);
         });
     }, [props]);
     return (React.createElement(PostWrapper, null,

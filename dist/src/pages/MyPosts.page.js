@@ -23,7 +23,7 @@ const MyPosts = () => {
         }
     }, [user]);
     return (React.createElement(PageWrapper, null,
-        React.createElement(Header, null),
+        React.createElement(Header, { pageTitle: 'MyPosts' }),
         React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { postTime: getElapsedTime(post.postDate.toDate()), imageUrl: post.postImageUrl, uid: post.userId, key: post.postTitle })))));
 };
 export default MyPosts;

@@ -28,7 +28,7 @@ const MyPosts = () => {
 
     return (        
         <PageWrapper>
-            <Header/>
+            <Header pageTitle='MyPosts' />
             <div style={{marginTop: '50px'}}>
             {
                 posts.map((post) => <Post postTime={getElapsedTime(post.postDate.toDate())} imageUrl={post.postImageUrl} uid={post.userId}  key={post.postTitle}></Post>)

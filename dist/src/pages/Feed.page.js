@@ -23,7 +23,7 @@ const Feed = () => {
         }
     }, [user]);
     return (React.createElement(PageWrapper, null,
-        React.createElement(Header, null),
+        React.createElement(Header, { pageTitle: 'Feed' }),
         React.createElement("div", { style: { marginTop: '50px' } }, posts.map((post) => React.createElement(Post, { postTime: getElapsedTime(post.postDate.toDate()), imageUrl: post.postImageUrl, uid: post.userId, key: post.postTitle })))));
 };
 export default Feed;

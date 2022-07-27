@@ -15,6 +15,7 @@ import PasswordReset from '../pages/PasswordReset.page';
 // Router 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyPosts from '../pages/MyPosts.page';
+import Settings from '../pages/Settings.page';
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />
                     <Route path='/myPosts' element={ <MyPosts/> } />
+                    <Route path='/settings' element={ <Settings/> } />
                     <Route path='/passwordReset' element={ <PasswordReset/> }/>
                 </Routes>
             </BrowserRouter>

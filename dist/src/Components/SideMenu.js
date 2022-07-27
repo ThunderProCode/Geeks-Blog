@@ -28,7 +28,7 @@ const SideMenu = () => {
             React.createElement("li", null,
                 React.createElement(Link, { to: '/myPosts' }, "My posts")),
             React.createElement("li", null,
-                React.createElement("a", { href: "" }, "Settings")),
+                React.createElement(Link, { to: '/settings' }, "Settings")),
             React.createElement("li", null,
                 React.createElement("a", { href: "", onClick: handleLogout }, "Logout")))));
 };

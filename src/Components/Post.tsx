@@ -5,7 +5,6 @@ import { PostImage, PostProfilePic } from '../Styles/Imgs.styles';
 import { AiOutlineHeart, AiFillHeart,AiFillEye,AiOutlineComment } from 'react-icons/ai';
 import { BsThreeDots } from 'react-icons/bs';
 import { getUserByUid } from '../hooks/userUsers';
-import { DocumentData } from 'firebase/firestore';
 
 interface PostProps {
     postTime:string,
@@ -22,8 +21,13 @@ const Post = (props:PostProps) => {
         getUserByUid(props.uid)
         .then((postCreator) => {
             setDisplayName(postCreator.displayName);
-            setProfilePicture(postCreator.profilePic)
-        })        
+            setProfilePicture(postCreator.profilePic);
+            console.log(`Profile picture${profilePicture}`);
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+
     },[props])
 
     return (

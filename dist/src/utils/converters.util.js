@@ -69,7 +69,6 @@ export const getElapsedTime = (date) => {
         return days + " days ago";
     }
     else if (hours > 1) {
-        console.log(hours);
         return hours + " hours ago";
     }
     else if (minutes > 1) {

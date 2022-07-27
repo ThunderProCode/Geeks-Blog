@@ -2,10 +2,7 @@ import dayjs from "dayjs";
 
 export const timeSince = (date:Date) => {
     const seconds = Math.floor((new Date() - date) / 1000);
-  
     let interval = seconds / 31536000;
-    
-
     if (interval > 1) {
       return Math.floor(interval) + " years ago";
     }
@@ -68,7 +65,6 @@ export const getElapsedTime = (date:Date):string => {
     }else if(days > 1){
         return days + " days ago";
     }else if(hours > 1){
-        console.log(hours);
         return hours + " hours ago";
     }else if(minutes > 1){
         if(minutes > 60){

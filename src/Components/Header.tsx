@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import SideMenu from './SideMenu';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../services/auth.slice';
 
-const Header = () => {
+
+interface headerProps {
+    pageTitle: string
+}
+
+const Header = (props:headerProps) => {
 
     const [ displayMenu, setDisplayMenu ] = useState(false);
+    const user = useSelector(selectUser);
+    const [profilePicture,setProfilePicture] = useState("");
 
     const toggleMenu = () => {
         setDisplayMenu(!displayMenu);
     }
+
+    useEffect(() => {
+        if(user){
+            setProfilePicture(user.profilePic)
+            console.log(user)
+            console.log(profilePicture);
+        }
+    },[user])
+
 
     return (
         <>
@@ -28,9 +46,9 @@ const Header = () => {
                 zIndex: '1'
             }}>
                 <GiHamburgerMenu style={{color: 'white', fontSize: '20px'}} onClick={toggleMenu} />
-                {/* <h1 style={{color: 'white',fontSize: '24px'}}>Feed</h1> */}
+                <h1 style={{color: 'white',fontSize: '24px'}}>{ props.pageTitle }</h1>
                 <img 
-                    src="https://i.pinimg.com/originals/03/3f/c5/033fc537c42bfe4e2eb5b6e128a2d083.png" 
+                    src={profilePicture} 
                     alt="" 
                     style={{
                         width: '24px',

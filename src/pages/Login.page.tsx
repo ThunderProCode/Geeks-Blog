@@ -44,6 +44,8 @@ const Login = () => {
                     login({
                         email: userAuth.user.email,
                         uid: userAuth.user.uid,
+                        displayName: userAuth.user.displayName,
+                        profilePic: userAuth.user.photoURL
                     })
                 )
             }
@@ -67,7 +69,8 @@ const Login = () => {
                     login({
                         email:userAuth.user.email,
                         uid: userAuth.user.uid,
-                        displayName: userAuth.user.displayName
+                        displayName: userAuth.user.displayName,
+                        profilePic: userAuth.user.photoURL
                     })
                 )
             }

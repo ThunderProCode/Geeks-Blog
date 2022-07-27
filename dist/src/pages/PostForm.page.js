@@ -76,7 +76,7 @@ const PostForm = () => {
                 React.createElement(Loader, { style: { marginTop: '24px' } }))));
     }
     return (React.createElement(PageWrapper, null,
-        React.createElement(Header, null),
+        React.createElement(Header, { pageTitle: 'New Post' }),
         React.createElement(PageTitle, null, "New post"),
         React.createElement(Form, { onSubmit: handleSubmit },
             React.createElement(FormInputWrapper, null,

@@ -30,7 +30,7 @@ const Feed = () => {
 
     return (
         <PageWrapper>
-            <Header></Header>
+            <Header pageTitle='Feed' ></Header>
             <div style={{marginTop: '50px'}}>
                 {
                     posts.map((post) => 

@@ -60,6 +60,7 @@ const Register = () => {
                                 email: userAuth.user.email,
                                 uid: userAuth.user.uid,
                                 displayName: name,
+                                profilePic: "https://beomy.co.il/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
                             }))
                         }
                     })
@@ -74,13 +75,15 @@ const Register = () => {
                 const user = userAuth.user;
                 if(!userExists(user.uid)){
                     const creationTime = user.metadata.creationTime ? user.metadata.creationTime : "";
-                    addUserToDb(user.uid,name,creationTime,user.photoURL,email);
+                    const photoUrl = user.photoURL ? user.photoURL : "";
+                    addUserToDb(user.uid,name,creationTime,photoUrl,email);
                 }
                 dispatch(
                     login({
                         email:userAuth.user.email,
                         uid: userAuth.user.uid,
-                        displayName: userAuth.user.displayName
+                        displayName: userAuth.user.displayName,
+                        profilePic: userAuth.user.photoURL,
                     })
                 )
             }

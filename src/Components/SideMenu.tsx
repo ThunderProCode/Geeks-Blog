@@ -36,7 +36,7 @@ const SideMenu = () => {
                     <Link to='/myPosts'>My posts</Link>
                 </li>
                 <li>
-                    <a href="">Settings</a>
+                    <Link to='/settings'>Settings</Link>
                 </li>
                 <li>
                     <a href="" onClick={handleLogout}>Logout</a>

@@ -95,7 +95,7 @@ const PostForm = () => {
 
     return (
         <PageWrapper>
-            <Header/>
+            <Header pageTitle='New Post' />
             <PageTitle>New post</PageTitle>
             <Form onSubmit={handleSubmit}>
                 <FormInputWrapper>
