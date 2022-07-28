@@ -13,3 +13,4 @@ export const Loader = styled.div`
         100% { transform: rotate(360deg) }
     }
 `
+

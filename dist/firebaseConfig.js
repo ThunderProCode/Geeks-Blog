@@ -1,9 +1,9 @@
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-    apiKey: "AIzaSyC0OHtM8ZpVI4xfHFaIgDqLY2qGLybVudg",
-    authDomain: "geeksblogs-45cf2.firebaseapp.com",
-    projectId: "geeksblogs-45cf2",
-    storageBucket: "geeksblogs-45cf2.appspot.com",
-    messagingSenderId: "1071985615724",
-    appId: "1:1071985615724:web:96148c9940ee2150ff4949",
+    apiKey: `${process.env.REACT_APP_API_KEY}`,
+    authDomain: `${process.env.REACT_APP_AUTH_DOMAIN}`,
+    projectId: `${process.env.REACT_APP_PROJECT_ID}`,
+    storageBucket: `${process.env.REACT_APP_STORAGE_BUCKET}`,
+    messagingSenderId: `${process.env.REACT_APP_MESSAGING_SENDER_ID}`,
+    appId: `${process.env.REACT_APP_APP_ID}`,
 };

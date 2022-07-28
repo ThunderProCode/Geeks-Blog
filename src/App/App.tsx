@@ -24,7 +24,7 @@ const App = () => {
             <GlobalStyles/>
             <BrowserRouter>
                 <Routes>
-                    <Route path="https://geeksblogs-45cf2.web.app" element={<Feed/>}/>
+                    <Route path="/" element={<Feed/>}/>
                     <Route path="/login" element={<Login/>} />
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />

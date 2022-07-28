@@ -6,6 +6,33 @@ export const PageWrapper = styled.div `
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media (min-width: 600px) {
+        width: 80%;
+    }
+
+    @media (min-width: 700px) {
+        width: 70%;
+    }
+
+    @media (min-width: 1000px) {
+        width: 40%;
+    }
+
+`;
+export const MenuWrapper = styled.div `
+    background: black;
+    width: 50%;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    margin-top: 40px;
+
+    @media (min-width: 600px) {
+        display: none;
+    }
 `;
 export const FormInputWrapper = styled.div `
     margin-top: 16px;
@@ -88,4 +115,22 @@ export const PostIconContainer = styled.div `
         margin-left: 4px;
         font-size: 14px;
     }
+`;
+export const TopHeader = styled.header `
+    width: 90%;
+    height: 5%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    z-index: 1;
+
+    @media (min-width: 600px) {
+        width: 100%;
+        padding: 12px;
+    }
+
 `;

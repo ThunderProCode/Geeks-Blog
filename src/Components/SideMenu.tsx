@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../services/auth.slice'
 import {  logoutOfApp } from '../services/auth.service';
+import { MenuWrapper } from '../Styles/Divs.styles';
 
 const SideMenu = () => {
 
@@ -15,31 +16,24 @@ const SideMenu = () => {
     }
 
     return (
-        <div style={{
-            background: 'black',
-            width:'50%',
-            height: '100%',
-            position: 'fixed',
-            zIndex: '2',
-            top: '0',
-            left: '0',
-            marginTop: '40px',
-        }}>
-            <MenuUl>
-                <li>
-                    <Link to='/'>Feed</Link>
-                </li>
-                <li>
-                    <Link to='/newPost'>New Post</Link>
-                </li>
-                <li>
-                    <Link to='/myPosts'>My posts</Link>
-                </li>
-                <li>
-                    <a href="" onClick={handleLogout}>Logout</a>
-                </li>
-            </MenuUl>
-        </div>
+        <>
+            <MenuWrapper>
+                <MenuUl>
+                    <li>
+                        <Link to='/'>Feed</Link>
+                    </li>
+                    <li>
+                        <Link to='/newPost'>New Post</Link>
+                    </li>
+                    <li>
+                        <Link to='/myPosts'>My posts</Link>
+                    </li>
+                    <li>
+                        <a href="" onClick={handleLogout}>Logout</a>
+                    </li>
+                </MenuUl>
+            </MenuWrapper>
+        </>
     );
 };
 

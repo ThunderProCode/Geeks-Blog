@@ -21,7 +21,6 @@ export const GlobalStyles = createGlobalStyle `
         background: black;
         height: 100vh;
         margin: 0 auto;
-        max-width: 500px;
         overscroll-behavior: none;
         width: 100%; 
     }

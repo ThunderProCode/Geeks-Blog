@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import SideMenu from './SideMenu';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../services/auth.slice';
+import { MenuIcon } from '../Styles/Icons.styles';
+import { TopHeader } from '../Styles/Divs.styles';
+import { Link } from 'react-router-dom';
+import { LargeMenuUl } from '../Styles/Menu.styles';
 
 
 interface headerProps {
@@ -31,31 +34,41 @@ const Header = (props:headerProps) => {
             { 
                 displayMenu ? <SideMenu/> : <></> 
             }
-            <header style={{
-                width: '90%',
-                height: '5%',
-                position: 'fixed',
-                top: '0',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                background: 'black',
-                zIndex: '1'
-            }}>
-                <GiHamburgerMenu style={{color: 'white', fontSize: '20px'}} onClick={toggleMenu} />
-                <h1 style={{color: 'white',fontSize: '24px'}}>{ props.pageTitle }</h1>
-                <img 
-                    src={profilePicture} 
-                    alt="" 
-                    style={{
-                        width: '24px',
-                        height: '24px',
-                        borderRadius: '50%',
-                        objectFit: 'cover'
-                    }}
-                />
-            </header>
+            <TopHeader>
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <h1 style={{color: 'white',fontSize: '24px',justifySelf: 'center'}}>{ props.pageTitle }</h1>
+                    <LargeMenuUl>
+                        <li>
+                            <Link to='/'>Feed</Link>
+                        </li>
+                        <li>
+                            <Link to='/newPost'>New Post</Link>
+                        </li>
+                        <li>
+                            <Link to='/myPosts'>My Posts</Link>
+                        </li>
+                        <li>
+                            <a href="">Logout</a>
+                        </li>
+                    </LargeMenuUl>
+                    <MenuIcon onClick={toggleMenu}/>
+                    <img 
+                        src={profilePicture} 
+                        alt="" 
+                        style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                        }}
+                    />
+                </div>
+            </TopHeader>
         </>
     );
 };
