@@ -39,7 +39,7 @@ const Header = (props:headerProps) => {
                     width: '100%',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent:'space-between'
                 }}>
                     <h1 style={{color: 'white',fontSize: '24px',justifySelf: 'center'}}>{ props.pageTitle }</h1>
                     <LargeMenuUl>

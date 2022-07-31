@@ -39,14 +39,6 @@ module.exports = {
             template: './public/index.html',
             filename: './index.html'
         }),
-        new webpack.EnvironmentPlugin({
-            REACT_APP_API_KEY: 'AIzaSyC0OHtM8ZpVI4xfHFaIgDqLY2qGLybVudg',
-            REACT_APP_AUTH_DOMAIN: 'geeksblogs-45cf2.firebaseapp.com',
-            REACT_APP_PROJECT_ID: 'geeksblogs-45cf2',
-            REACT_APP_STORAGE_BUCKET: 'geeksblogs-45cf2.appspot.com',
-            REACT_APP_MESSAGING_SENDER_ID: '1071985615724',
-            REACT_APP_APP_ID: '1:1071985615724:web:7882467fcec73063ff4949',
-        })
     ],
     devServer: {
         static: "./public",

@@ -133,4 +133,9 @@ export const TopHeader = styled.header `
         padding: 12px;
     }
 
+    @media (max-width: 600px) {
+        img {
+            display: none;
+        }
+    }
 `;

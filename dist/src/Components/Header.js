@@ -25,7 +25,7 @@ const Header = (props) => {
                     width: '100%',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'space-between'
                 } },
                 React.createElement("h1", { style: { color: 'white', fontSize: '24px', justifySelf: 'center' } }, props.pageTitle),
                 React.createElement(LargeMenuUl, null,
