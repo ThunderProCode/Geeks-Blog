@@ -18,7 +18,7 @@ const MyPosts = () => {
 
     useEffect(() => {
         if(!user){
-            navigate('https://geeks-blog-kdyw9xbd8-thunderprocode.vercel.app/login');
+            navigate('/login');
         }else {
             usePosts(user.uid)
             .then((userPosts) => {

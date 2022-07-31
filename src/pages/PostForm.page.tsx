@@ -33,7 +33,7 @@ const PostForm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!user)navigate('https://geeks-blog-kdyw9xbd8-thunderprocode.vercel.app/login');
+        if(!user)navigate('/login');
     },[user])
 
     const handleSubmit = (e:React.FormEvent) => {
