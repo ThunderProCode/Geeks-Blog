@@ -88,7 +88,7 @@ const Login = () => {
     useEffect(() => {
         if(user){
             toast.success("Login Successful");
-            navigate("https://geeksblogs-45cf2.web.app/");
+            navigate("/");
         }
     }, [user]);
 

@@ -19,7 +19,7 @@ const PasswordReset = () => {
 
     const handlePasswordReset = () => {
         passwordReset(email)
-        navigate('login');
+        navigate('/login');
     }
 
     return (

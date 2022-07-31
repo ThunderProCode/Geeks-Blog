@@ -23,13 +23,14 @@ const App = () => {
             <GlobalStyles/>
             <BrowserRouter>
                 <Routes>
-                    <Route path="https://geeksblogs-45cf2.web.app/" element={<Feed/>}/>
-                    <Route path="/login" element={<Login/>} />
-                    <Route path="/register" element={<Register/>} />
-                    <Route path='/newPost' element={<PostForm/>} />
-                    <Route path='/myPosts' element={ <MyPosts/> } />
-                    <Route path='/passwordReset' element={ <PasswordReset/> }/>
-                    <Route path='**' element={ <h1>404</h1> } />
+                    <Route path="/" element={<Feed/>}>
+                        <Route path="login" element={<Login/>} />
+                        <Route path="register" element={<Register/>} />
+                        <Route path='newPost' element={<PostForm/>} />
+                        <Route path='myPosts' element={ <MyPosts/> } />
+                        <Route path='passwordReset' element={ <PasswordReset/> }/>
+                    </Route>
+                    <Route index element={ <h1>404</h1> } />
                 </Routes>
             </BrowserRouter>
             <ToastContainer 
