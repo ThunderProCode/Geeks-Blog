@@ -1,7 +1,7 @@
 {
   "name": "geeksblogs",
   "version": "1.0.0",
-  "proxy": "http://localhost:8080",
+  "proxy": "https://geeks-blog-kdyw9xbd8-thunderprocode.vercel.app/",
   "description": "social media webapp",
   "main": "index.js",
   "scripts": {

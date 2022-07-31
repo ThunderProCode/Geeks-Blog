@@ -9,7 +9,6 @@ import { DocumentData } from 'firebase/firestore';
 import { getAllPosts } from '../hooks/usePosts';
 import { getElapsedTime } from '../utils/converters.util';
 import { User } from 'firebase/auth';
-import { getUserByUid } from '../hooks/userUsers';
 
 const Feed = () => {
 
@@ -19,7 +18,7 @@ const Feed = () => {
 
     useEffect(() => {
         if(!user){
-            navigate("https://geeks-blog.vercel.app/login");
+            navigate("/login");
         }else {
             getAllPosts()
             .then((allposts) => {
