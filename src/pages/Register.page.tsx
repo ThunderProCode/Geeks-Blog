@@ -91,7 +91,7 @@ const Register = () => {
     }
 
     useEffect( () => {
-        if(user) navigate("/");
+        if(user) navigate("/feed");
     },[user]);
 
     return (

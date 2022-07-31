@@ -20,7 +20,6 @@ const Feed = () => {
         if(!user){
             navigate("/login");
         }else {
-            console.log('yes user');
             getAllPosts()
             .then((allposts) => {
                 setPosts(allposts);

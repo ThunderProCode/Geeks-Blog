@@ -29,6 +29,7 @@ const App = () => {
                     <Route path='/newPost' element={<PostForm/>} />
                     <Route path='/myPosts' element={ <MyPosts/> } />
                     <Route path='/passwordReset' element={ <PasswordReset/> }/>
+                    <Route path='**' element={ <h1>404</h1> } />
                 </Routes>
             </BrowserRouter>
             <ToastContainer 
