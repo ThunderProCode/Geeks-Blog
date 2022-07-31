@@ -20,7 +20,7 @@ const SideMenu = () => {
             <MenuWrapper>
                 <MenuUl>
                     <li>
-                        <Link to='/'>Feed</Link>
+                        <Link to='/feed'>Feed</Link>
                     </li>
                     <li>
                         <Link to='/newPost'>New Post</Link>

@@ -88,7 +88,7 @@ const Login = () => {
     useEffect(() => {
         if(user){
             toast.success("Login Successful");
-            navigate("/");
+            navigate("/feed");
         }
     }, [user]);
 
