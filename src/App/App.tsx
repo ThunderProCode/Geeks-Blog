@@ -16,13 +16,14 @@ import PasswordReset from '../pages/PasswordReset.page';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyPosts from '../pages/MyPosts.page';
 
+
 const App = () => {
     return (
         <>
             <GlobalStyles/>
             <BrowserRouter>
                 <Routes>
-                    <Route path="https://geeks-blog.vercel.app/" element={<Feed/>}/>
+                    <Route path="https://geeks-blog.vercel.app" element={<Feed/>}/>
                     <Route path="/login" element={<Login/>} />
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />

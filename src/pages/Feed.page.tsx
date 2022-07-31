@@ -19,7 +19,7 @@ const Feed = () => {
 
     useEffect(() => {
         if(!user){
-            navigate("/login");
+            navigate("https://geeks-blog.vercel.app/login");
         }else {
             getAllPosts()
             .then((allposts) => {
