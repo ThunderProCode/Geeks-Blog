@@ -15,8 +15,6 @@ import PasswordReset from '../pages/PasswordReset.page';
 // Router 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyPosts from '../pages/MyPosts.page';
-import Settings from '../pages/Settings.page';
-
 
 const App = () => {
     return (
@@ -24,7 +22,7 @@ const App = () => {
             <GlobalStyles/>
             <BrowserRouter>
                 <Routes>
-                    <Route path="https://geeks-blog.vercel.app" element={<Feed/>}/>
+                    <Route path="https://geeks-blog.vercel.app/" element={<Feed/>}/>
                     <Route path="/login" element={<Login/>} />
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />
