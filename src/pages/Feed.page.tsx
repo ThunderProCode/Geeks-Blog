@@ -18,9 +18,9 @@ const Feed = () => {
 
     useEffect(() => {
         if(!user){
-            console.log('No user');
             navigate("/login");
         }else {
+            console.log('yes user');
             getAllPosts()
             .then((allposts) => {
                 setPosts(allposts);
