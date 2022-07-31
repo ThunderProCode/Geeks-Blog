@@ -23,7 +23,7 @@ const App = () => {
             <GlobalStyles/>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Feed/>}/>
+                    <Route path="https://geeks-blog-kdyw9xbd8-thunderprocode.vercel.app" element={<Feed/>}/>
                     <Route path="/login" element={<Login/>} />
                     <Route path="/register" element={<Register/>} />
                     <Route path='/newPost' element={<PostForm/>} />

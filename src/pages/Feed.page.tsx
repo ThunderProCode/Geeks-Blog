@@ -18,6 +18,7 @@ const Feed = () => {
 
     useEffect(() => {
         if(!user){
+            console.log('No user');
             navigate("https://geeks-blog-kdyw9xbd8-thunderprocode.vercel.app/login");
         }else {
             getAllPosts()
