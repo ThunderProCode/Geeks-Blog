@@ -23,13 +23,12 @@ const App = () => {
             <GlobalStyles/>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Feed/>}>
-                        <Route path="login" element={<Login/>} />
-                        <Route path="register" element={<Register/>} />
-                        <Route path='newPost' element={<PostForm/>} />
-                        <Route path='myPosts' element={ <MyPosts/> } />
-                        <Route path='passwordReset' element={ <PasswordReset/> }/>
-                    </Route>
+                    <Route path="/" element={<Feed/>}/>
+                    <Route path="/login" element={<Login/>} />
+                    <Route path="/register" element={<Register/>} />
+                    <Route path='/newPost' element={<PostForm/>} />
+                    <Route path='/myPosts' element={ <MyPosts/> } />
+                    <Route path='/passwordReset' element={ <PasswordReset/> }/>
                     <Route index element={ <h1>404</h1> } />
                 </Routes>
             </BrowserRouter>
